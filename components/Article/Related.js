@@ -4,13 +4,13 @@ import { Link, Box, Flex, Spacer, HStack, Image, Text, Divider } from "@chakra-u
 function Related(props) {
     return (
         <div>
-        <HStack w="800px" spacing="20px">
+        <HStack w="700px" spacing="20px">
             <Image
                 htmlWidth="100px"
                 src={props.img}
             />
             <div>
-            <Box w="650px">
+            <Box w="550px">
                 <Flex>
                     <Link>
                     <Text fontWeight="bold"> {props.title} </Text>
@@ -19,7 +19,7 @@ function Related(props) {
                     <Text> {props.timestamp} </Text>
                 </Flex>
             </Box>
-            <Box w="650px">
+            <Box w="550px">
             <Text> {props.subtitle} </Text>
             </Box>
             </div>

@@ -27,7 +27,7 @@ function RelatedSection() {
 
   return (
     <Container size="xl" centerContent p="50px">
-      <Box w="800px">
+      <Box w="700px">
         <Heading as="h4" size="md">
                 Related Articles
         </Heading>
