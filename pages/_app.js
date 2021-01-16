@@ -2,6 +2,9 @@ import "../styles/globals.css";
 import { ChakraProvider } from "@chakra-ui/react";
 import Head from "next/head";
 import { useRouter } from "next/router";
+import { Provider } from "react-redux";
+
+import configureStore from "../stores";
 
 const pageToTitle = {
   "/": "Homepage",
@@ -31,13 +34,16 @@ const PageWrapper = ({ children, title }) => {
 
 function MyApp({ Component, pageProps }) {
   const router = useRouter();
+  const store = configureStore();
   const { pathname } = router;
 
   return (
     <ChakraProvider>
-      <PageWrapper title={pageToTitle[pathname]}>
-        <Component {...pageProps} />
-      </PageWrapper>
+      <Provider store={store}>
+        <PageWrapper title={pageToTitle[pathname]}>
+          <Component {...pageProps} />
+        </PageWrapper>
+      </Provider>
     </ChakraProvider>
   );
 }
