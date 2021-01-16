@@ -5,11 +5,6 @@ function ListItem(props) {
     return (
         <div>
         <HStack w="500px" spacing="20px">
-            <Image
-                boxSize="80px"
-                objectFit="cover"
-                src={props.img}
-            />
             <div>
             <Box w="400px">
                 <Flex>
@@ -21,6 +16,11 @@ function ListItem(props) {
             <Text> {props.subtitle} </Text>
             </div>
             <Spacer />
+            <Image
+                boxSize="80px"
+                objectFit="cover"
+                src={props.img}
+            />
         </HStack>
         <br/>
         <Divider />

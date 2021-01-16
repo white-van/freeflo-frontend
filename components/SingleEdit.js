@@ -26,7 +26,6 @@ function SingleEdit(props) {
             <Flex>
             <HStack w="300px" spacing="20px">
                 <Avatar name={props.name} src={props.avatar} />
-
                 <div>
                     <Text fontWeight="extrabold"> {props.title} </Text>
                     <Text> {props.subtitle} </Text>
