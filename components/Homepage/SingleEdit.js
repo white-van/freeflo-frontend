@@ -17,21 +17,21 @@ function ChooseIcon({ iconindex }) {
   if (iconindex == 0) {
     return (
       <Button variant="ghost">
-        <CheckIcon />
+        <CheckIcon style={{ color: "green" }} />
       </Button>
     );
   }
   if (iconindex == 1) {
     return (
       <Button variant="ghost">
-        <CloseIcon />
+        <CloseIcon style={{ color: "red" }} />
       </Button>
     );
   }
   if (iconindex == 2) {
     return (
       <Button variant="ghost">
-        <Icon as={BiDotsHorizontalRounded} />
+        <Icon as={BiDotsHorizontalRounded} style={{ color: "#f0b30c" }} />
       </Button>
     );
   }

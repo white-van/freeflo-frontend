@@ -64,7 +64,7 @@ function Home() {
     "For a given source node in the graph, the algorithm finds the shortest path between that node and every other.[8]:196–206 It can also be used for finding the shortest paths from a single node to a single destination node by stopping the algorithm once the shortest path to the destination node has been determined.";
 
   return (
-    <Center>
+    <Center className={styles.home}>
       <Grid>
         <Grid templateColumns="repeat(3, 1fr)" className={styles.main}>
           <GridItem colSpan={2} mr={10}>
