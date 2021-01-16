@@ -11,7 +11,20 @@ import {
   Tab,
   Tabs,
   Icon,
+  Avatar
 } from "@chakra-ui/react";
+import {
+  Menu,
+  MenuButton,
+  MenuList,
+  MenuItem,
+  MenuItemOption,
+  MenuGroup,
+  MenuOptionGroup,
+  MenuIcon,
+  MenuCommand,
+  MenuDivider,
+} from "@chakra-ui/react"
 import Link from "next/link";
 import { useRouter } from "next/router";
 import React from "react";
@@ -23,6 +36,7 @@ import {
   FaRegHeart,
   FaRegBell,
 } from "react-icons/fa";
+
 
 const LoggedInActions = [FaSearch, FaRegHeart, FaRegBell];
 const LoggedInView = () => {
@@ -40,7 +54,7 @@ const LoggedInView = () => {
           ))}
         </TabList>
       </Tabs>
-      <Link href="/write">
+      <Link href="/write"> 
         <Button
           mt="1"
           mr="1"
@@ -96,6 +110,51 @@ export const Navbar = ({ isLoggedIn = true }) => {
       <Box m="2">
         <Flex>
           {isLoggedIn ? <LoggedInView /> : <LoggedOutView />}
+
+          <Menu>
+          <MenuButton as={Button} variant="ghost" aria-label="Search database" >
+            <Avatar h="30px" w="30px" name="Dan Abrahmov" src="https://bit.ly/dan-abramov" />
+          </MenuButton>
+          <MenuList>
+          <Link href="/">
+            <MenuItem>
+              Dashboard
+            </MenuItem>
+            </Link>
+            <Link href="/profile">
+            <MenuItem>
+              Profile
+            </MenuItem>
+            </Link>
+            <Link href="/read">
+            <MenuItem>
+              Browse articles
+            </MenuItem>
+            </Link>
+            <MenuItem>
+              <Link href="/write">
+              Pending reviews
+              </Link>
+            </MenuItem>
+            <MenuItem>
+              <Link href="/write">
+              Your reviews
+              </Link>
+            </MenuItem>
+            <MenuDivider />
+            <Link href="/welcome">
+            <MenuItem>
+              Settings
+            </MenuItem>
+            </Link>
+            <Link href="/welcome">
+            <MenuItem>
+              Log out
+            </MenuItem>
+            </Link>
+          </MenuList>
+        </Menu>
+
           <IconButton
             size="sm"
             fontSize="lg"
