@@ -1,9 +1,16 @@
 import Head from 'next/head'
 import styles from '../styles/Home.module.css'
+import ReviewRequest from "../components/ReviewRequest"
+import React from 'react';
+import { ChakraProvider, Box } from "@chakra-ui/react"
 
 export default function Home() {
   return (
+    <ChakraProvider>
     <div className={styles.container}>
+      <Box w='250px'>
+        <ReviewRequest />
+      </Box>
       <Head>
         <title>Create Next App</title>
         <link rel="icon" href="/favicon.ico" />
@@ -61,5 +68,6 @@ export default function Home() {
         </a>
       </footer>
     </div>
+    </ChakraProvider>
   )
 }

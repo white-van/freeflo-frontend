@@ -1,5 +1,5 @@
 import React from 'react';
-import { Icon, HStack, Avatar, Text } from "@chakra-ui/react";
+import { HStack, Avatar, Text } from "@chakra-ui/react";
 import { CheckIcon, CloseIcon } from '@chakra-ui/icons'
 
 function ChooseIcon(props) {
