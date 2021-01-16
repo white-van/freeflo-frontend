@@ -7,14 +7,16 @@ require("medium-editor/dist/css/themes/default.css");
 const landscape =
   "https://loadedlandscapes.com/wp-content/uploads/2019/07/lighting.jpg";
 
-const placeholder =
-  "https://www.gaithersburgdental.com/wp-content/uploads/2016/10/orionthemes-placeholder-image.png";
-
-function Article({ isReadOnly }) {
+function Article({
+  isReadOnly,
+  title,
+  text,
+  imgSrc,
+  setTitle,
+  setText,
+  setImgSrc,
+}) {
   const fileUpload = useRef(null);
-  const [title, setTitle] = useState("");
-  const [imgSrc, setImgSrc] = useState(placeholder);
-  const [text, setText] = useState("");
 
   const onImgClick = () => {
     fileUpload.current.click();
