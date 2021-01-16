@@ -15,6 +15,8 @@ import { connect } from "react-redux";
 import * as Yup from "yup";
 
 import { closeAllModals } from "../../stores/ui/actions";
+import { login } from "../../stores/user/actions";
+import { isLoginPendingSelector } from "../../stores/user/selectors";
 
 export const LoginSchema = Yup.object().shape({
   username: Yup.string().required(),
@@ -25,6 +27,7 @@ export function LoginForm({
   closeAllModals,
   errors,
   handleSubmit,
+  isPending,
   setFieldValue,
   values: { username, password },
 }) {
@@ -37,12 +40,13 @@ export function LoginForm({
         <Input
           value={username}
           onChange={(e) => setFieldValue("username", e.target.value)}
+          placeholder="Enter username"
         />
       </FormControl>
       <FormHelperText style={{ color: "red" }}>
         {errors && errors["username"]}
       </FormHelperText>
-      <FormControl id="login-password">
+      <FormControl id="login-password" mt={2}>
         <FormLabel>Password</FormLabel>
         <InputGroup size="md">
           <Input
@@ -67,6 +71,7 @@ export function LoginForm({
       </FormControl>
       <div>
         <Button
+          isLoading={isPending}
           m={4}
           type="submit"
           onClick={handleSubmit}
@@ -87,10 +92,14 @@ export function LoginForm({
   );
 }
 
+const mapStateToProps = (state) => ({
+  isPending: isLoginPendingSelector(state),
+});
+
 export const EnhancedLoginForm = withFormik({
   enabledReinitialize: true,
-  handleSubmit: ({ username, password }, { props: {} }) => {
-    console.log({ username, password });
+  handleSubmit: ({ username, password }, { props: { login } }) => {
+    login({ username, password });
   },
   mapPropsToValues: (props) => ({
     username: "",
@@ -101,8 +110,9 @@ export const EnhancedLoginForm = withFormik({
   validateOnChange: false,
 })(LoginForm);
 
-const ConnectedLoginForm = connect(null, {
+const ConnectedLoginForm = connect(mapStateToProps, {
   closeAllModals,
+  login,
 })(EnhancedLoginForm);
 
 export default ConnectedLoginForm;

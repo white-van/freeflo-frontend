@@ -15,7 +15,7 @@ import * as Yup from "yup";
 
 import { closeAllModals } from "../../stores/ui/actions";
 import { signup } from "../../stores/user/actions";
-import { isPendingSelector } from "../../stores/user/selectors";
+import { isSignupPendingSelector } from "../../stores/user/selectors";
 
 export const SignupSchema = Yup.object().shape({
   username: Yup.string().required(),
@@ -41,32 +41,35 @@ export function SignupForm({
         <Input
           value={username}
           onChange={(e) => setFieldValue("username", e.target.value)}
+          placeholder="Enter username"
         />
       </FormControl>
       <FormHelperText style={{ color: "red" }}>
         {errors && errors["username"]}
       </FormHelperText>
-      <FormControl id="email">
+      <FormControl id="email" mt={2}>
         <FormLabel>Email address</FormLabel>
         <Input
           value={email}
           onChange={(e) => setFieldValue("email", e.target.value)}
+          placeholder="Enter email address"
         />
       </FormControl>
       <FormHelperText style={{ color: "red" }}>
         {errors && errors["email"]}
       </FormHelperText>
-      <FormControl id="full_name">
+      <FormControl id="full_name" mt={2}>
         <FormLabel>Full Name</FormLabel>
         <Input
           value={full_name}
           onChange={(e) => setFieldValue("full_name", e.target.value)}
+          placeholder="Enter full name"
         />
       </FormControl>
       <FormHelperText style={{ color: "red" }}>
         {errors && errors["full_name"]}
       </FormHelperText>
-      <FormControl id="password">
+      <FormControl id="password" mt={2}>
         <FormLabel>Password</FormLabel>
         <InputGroup size="md">
           <Input
@@ -132,7 +135,7 @@ export const EnhancedLoginForm = withFormik({
 })(SignupForm);
 
 const mapStateToProps = (state) => ({
-  isPending: isPendingSelector(state),
+  isPending: isSignupPendingSelector(state),
 });
 
 const ConnectedLoginForm = connect(mapStateToProps, {

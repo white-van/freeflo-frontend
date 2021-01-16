@@ -14,7 +14,17 @@ export const signupSelector = createSelector(
   (userStore) => userStore.signup
 );
 
-export const isPendingSelector = createSelector(
+export const isSignupPendingSelector = createSelector(
   signupSelector,
   (signup) => signup.isPending
+);
+
+export const loginSelector = createSelector(
+  userStoreSelector,
+  (userStore) => userStore.login
+);
+
+export const isLoginPendingSelector = createSelector(
+  loginSelector,
+  (login) => login.isPending
 );

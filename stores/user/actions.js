@@ -4,9 +4,29 @@ import { formatName } from "../helpers";
 
 export const userReducerName = "user";
 
-// login
-
-// signup
+export const login = createAsyncThunk(
+  formatName(userReducerName, "login"),
+  async ({ username, password }, { dispatch, rejectWithValue }) => {
+    const requestBody = {
+      username,
+      password,
+    };
+    try {
+      const response = await fetch(
+        "http://localhost:9000/users/login",
+        requestBody
+      );
+      dispatch(displaySuccessToast("Login successful", "Happy writing!"));
+      return response.data;
+    } catch (e) {
+      dispatch(displayErrorToast("Error has occured", "Login unsuccessful."));
+      return rejectWithValue({
+        status: e.response && e.response.status,
+        message: e.response && e.response.data,
+      });
+    }
+  }
+);
 
 export const signup = createAsyncThunk(
   formatName(userReducerName, "signup"),
@@ -25,10 +45,10 @@ export const signup = createAsyncThunk(
         "http://localhost:9000/users/sign_up",
         requestBody
       );
-      dispatch(displaySuccessToast("Login successful", "Happy writing!"));
+      dispatch(displaySuccessToast("Sign up successful", "Happy writing!"));
       return response.data;
     } catch (e) {
-      dispatch(displayErrorToast("Error has occured", "Login unsuccessful."));
+      dispatch(displayErrorToast("Error has occured", "Sign up unsuccessful."));
       return rejectWithValue({
         status: e.response && e.response.status,
         message: e.response && e.response.data,
@@ -36,5 +56,3 @@ export const signup = createAsyncThunk(
     }
   }
 );
-
-// forgot password
