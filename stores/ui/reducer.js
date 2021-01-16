@@ -1,15 +1,15 @@
 import { createEntityAdapter, createReducer } from "@reduxjs/toolkit";
-import { uiReducerName, displaySnack } from "./actions";
+import { displayToast } from "./actions";
 
 export const uiAdapter = createEntityAdapter({});
 
 export const initialState = uiAdapter.getInitialState({
-  snacks: [],
+  toasts: [],
 });
 
 const uiReducer = createReducer(initialState, (builder) => {
-  builder.addCase(displaySnack, (state, action) => {
-    state.snacks = action.payload;
+  builder.addCase(displayToast, (state, action) => {
+    state.toasts = [...state.toasts, { ...action.payload, dismissed: false }];
   });
 });
 

@@ -1,7 +1,23 @@
 import { createAction } from "@reduxjs/toolkit";
 
+import { formatName } from "../helpers";
+
 export const uiReducerName = "ui";
 
-const formatName = (name) => `${uiReducerName}/${name}`;
+export const displayToast = createAction(
+  formatName(uiReducerName, "displayToast")
+);
 
-export const displaySnack = createAction(formatName("displaySnack"));
+const displayToastWrapper = (title, description, variant) => {
+  return displayToast({
+    key: Math.random(),
+    title,
+    description,
+    status: variant,
+    dismissed: false,
+  });
+};
+
+export const displaySuccessToast = (title, description) => {
+  return displayToastWrapper(title, description, "success");
+};
