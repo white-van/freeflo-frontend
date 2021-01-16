@@ -1,5 +1,5 @@
-import { Container, Image, Input } from "@chakra-ui/react";
-import React, { useState } from "react";
+import { CircularProgress, Container, Image, Input } from "@chakra-ui/react";
+import React, { useRef, useState } from "react";
 import Editor from "react-medium-editor";
 require("medium-editor/dist/css/medium-editor.css");
 require("medium-editor/dist/css/themes/default.css");
@@ -7,18 +7,49 @@ require("medium-editor/dist/css/themes/default.css");
 const landscape =
   "https://loadedlandscapes.com/wp-content/uploads/2019/07/lighting.jpg";
 
+const placeholder =
+  "https://www.gaithersburgdental.com/wp-content/uploads/2016/10/orionthemes-placeholder-image.png";
+
 function Write() {
+  const fileUpload = useRef(null);
   const [title, setTitle] = useState("");
+  const [imgSrc, setImgSrc] = useState(placeholder);
   const [text, setText] = useState("");
+
+  const onImgClick = () => {
+    fileUpload.current.click();
+  };
+
+  function fileSelectedHandler(e) {
+    const file = e.target.files[0];
+    setImgSrc("");
+    setTimeout(() => {
+      setImgSrc(landscape);
+    }, 1500);
+    //await postImg(...);
+  }
 
   return (
     <Container size="xl" centerContent>
-      <Image
-        htmlHeight="1200"
-        htmlWidth="800"
-        src="https://www.gaithersburgdental.com/wp-content/uploads/2016/10/orionthemes-placeholder-image.png"
-        style={{ cursor: "pointer" }}
+      <input
+        id="file"
+        type="file"
+        style={{ display: "none" }}
+        ref={fileUpload}
+        onChange={fileSelectedHandler}
       />
+      {imgSrc === "" ? (
+        <CircularProgress isIndeterminate color="red.500" />
+      ) : (
+        <Image
+          htmlHeight="1200"
+          htmlWidth="800"
+          onClick={onImgClick}
+          src={imgSrc}
+          style={{ cursor: "pointer" }}
+        />
+      )}
+
       <Input
         mt={2}
         value={title}

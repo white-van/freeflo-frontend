@@ -45,8 +45,20 @@ const contributors = [
 ];
 
 const FooterLink = ({ color, icon, href, label }) => (
-  <Link display="inline-block" href={href} aria-label={label} isExternal>
-    <Icon as={icon} fontSize="xl" color="gray.400" _hover={{ color }} />
+  <Link
+    key={`link-${href}`}
+    display="inline-block"
+    href={href}
+    aria-label={label}
+    isExternal
+  >
+    <Icon
+      key={`icon-${href}`}
+      as={icon}
+      fontSize="xl"
+      color="gray.400"
+      _hover={{ color }}
+    />
   </Link>
 );
 
@@ -72,7 +84,7 @@ const Footer = () => {
         {" by "}
         {contributors.map((contributor, index) => (
           <>
-            <Link key={contributor.href} {...contributor}>
+            <Link key={`contributor-${contributor.href}`} {...contributor}>
               {contributor.name}
             </Link>
             {`${determineLineEnding(index)}`}
@@ -85,7 +97,7 @@ const Footer = () => {
       </Text>
       <HStack spacing="12px" justify="center">
         {links.map((link) => (
-          <FooterLink key={link.href} {...link} />
+          <FooterLink key={`ftrlink-${link.href}`} {...link} />
         ))}
       </HStack>
     </Box>
