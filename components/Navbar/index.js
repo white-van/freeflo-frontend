@@ -51,9 +51,10 @@ const LoggedOutActions = ["Sign up", "Login"];
 const LoggedOutView = () => {
   return (
     <>
-      {LoggedOutActions.map((text) => (
+      {LoggedOutActions.map((text, index) => (
         <Button
           m="1"
+          key={index}
           size="sm"
           variant={useColorModeValue("primary", "primaryDark")}
         >
@@ -63,7 +64,7 @@ const LoggedOutView = () => {
     </>
   );
 };
-export const Navbar = ({ isLoggedIn = false }) => {
+export const Navbar = ({ isLoggedIn = true }) => {
   const { toggleColorMode } = useColorMode();
   const SwitchIcon = useColorModeValue(FaMoon, FaSun);
   const nextMode = useColorModeValue("dark", "light");

@@ -4,15 +4,16 @@ import Head from "next/head";
 import { useRouter } from "next/router";
 import Navbar from '../components/Navbar';
 import theme from '../theme';
+import { Provider } from "react-redux";
+
+import configureStore from "../stores";
+import Footer from "../components/Footer";
+import ToastController from "../components/ToastController";
 
 const pageToTitle = {
   "/": "Homepage",
 };
 
-
-const Footer = () => {
-  return <div>Hi I'm the Footer</div>;
-};
 
 const PageWrapper = ({ children, title }) => {
   return (
@@ -30,13 +31,17 @@ const PageWrapper = ({ children, title }) => {
 
 function MyApp({ Component, pageProps }) {
   const router = useRouter();
+  const store = configureStore();
   const { pathname } = router;
 
   return (
     <ChakraProvider theme={theme}>
-      <PageWrapper title={pageToTitle[pathname]}>
-        <Component {...pageProps} />
-      </PageWrapper>
+      <Provider store={store}>
+        <ToastController />
+        <PageWrapper title={pageToTitle[pathname]}>
+          <Component {...pageProps} />
+        </PageWrapper>
+      </Provider>
     </ChakraProvider>
   );
 }
