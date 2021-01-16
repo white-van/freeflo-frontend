@@ -27,6 +27,16 @@ import {
 
 import { toggleModal } from "../../stores/ui/actions";
 
+function pathToBtnLabel(path) {
+  if (path.startsWith("/review")) {
+    return "Submit Review";
+  } else if (path === "/write") {
+    return "Publish";
+  } else {
+    return "Write";
+  }
+}
+
 const LoggedInActions = [FaSearch, FaRegHeart, FaRegBell];
 const LoggedInView = () => {
   const router = useRouter();
@@ -50,7 +60,7 @@ const LoggedInView = () => {
           size="sm"
           variant={useColorModeValue("primary", "primaryDark")}
         >
-          {pathname === "/write" ? "Publish" : "Write"}
+          {pathToBtnLabel(pathname)}
         </Button>
       </Link>
     </>
