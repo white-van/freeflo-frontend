@@ -90,6 +90,7 @@ export const Navbar = ({ isLoggedIn = true }) => {
             variant="ghost"
             color="current"
             margin="1"
+            mr="4"
             onClick={toggleColorMode}
             icon={<SwitchIcon />}
           />
