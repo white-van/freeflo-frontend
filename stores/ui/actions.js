@@ -4,20 +4,24 @@ import { formatName } from "../helpers";
 
 export const uiReducerName = "ui";
 
+export const closeAllToasts = createAction(
+  formatName(uiReducerName, "closeAllToasts")
+);
+
 export const displayToast = createAction(
   formatName(uiReducerName, "displayToast")
 );
 
-const displayToastWrapper = (title, description, variant) => {
+const displayToastWrapper = (title, description, isSticky, variant) => {
   return displayToast({
     key: Math.random(),
     title,
     description,
+    duration: isSticky ? null : 5000,
     status: variant,
-    dismissed: false,
   });
 };
 
-export const displaySuccessToast = (title, description) => {
-  return displayToastWrapper(title, description, "success");
+export const displaySuccessToast = (title, description, isSticky) => {
+  return displayToastWrapper(title, description, isSticky, "success");
 };

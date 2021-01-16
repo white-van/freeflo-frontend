@@ -2,10 +2,10 @@ import Head from "next/head";
 import styles from "../styles/Home.module.css";
 import { Button } from "@chakra-ui/react";
 
-import { displaySuccessToast } from "../stores/ui/actions";
+import { closeAllToasts, displaySuccessToast } from "../stores/ui/actions";
 import { connect } from "react-redux";
 
-function Home({ displaySuccessToast }) {
+function Home({ closeAllToasts, displaySuccessToast }) {
   return (
     <div className={styles.container}>
       <Head>
@@ -21,7 +21,10 @@ function Home({ displaySuccessToast }) {
           colorScheme="blue"
           onClick={() => displaySuccessToast("u fool", "im monky")}
         >
-          Hi
+          Click me to dispatch a toast
+        </Button>
+        <Button colorScheme="red" onClick={() => closeAllToasts()}>
+          Click me to dismiss all toasts
         </Button>
         <p className={styles.description}>
           Get started by editing{" "}
@@ -44,5 +47,6 @@ function Home({ displaySuccessToast }) {
 }
 
 export default connect(null, {
+  closeAllToasts,
   displaySuccessToast,
 })(Home);

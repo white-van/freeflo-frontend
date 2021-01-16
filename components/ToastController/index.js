@@ -5,17 +5,20 @@ import { connect } from "react-redux";
 import { toastsSelector } from "../../stores/ui/selectors";
 
 export const UnconnectedToastController = ({ toasts }) => {
-  const enqueueToast = useToast();
+  const toastController = useToast();
   const [displayedToasts, setDisplayedToasts] = useState({});
 
   useEffect(() => {
+    if (toasts.length === 0) {
+      toastController.closeAll();
+    }
+
     toasts.forEach((toast) => {
       if (displayedToasts[toast.key]) return;
       displayedToasts[toast.key] = toast;
       setDisplayedToasts(displayedToasts);
-      enqueueToast({
+      toastController({
         ...toast,
-        duration: 5000,
         isClosable: true,
         position: "bottom-left",
       });
