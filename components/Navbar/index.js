@@ -12,6 +12,8 @@ import {
   Tabs,
   Icon,
 } from "@chakra-ui/react";
+import Link from "next/link";
+import { useRouter } from "next/router";
 import React from "react";
 import {
   FaMoon,
@@ -24,6 +26,9 @@ import {
 
 const LoggedInActions = [FaSearch, FaRegHeart, FaRegBell];
 const LoggedInView = () => {
+  const router = useRouter();
+  const { pathname } = router;
+
   return (
     <>
       <Tabs size="md" mt="1" mr="4" variant="soft-rounded">
@@ -35,14 +40,16 @@ const LoggedInView = () => {
           ))}
         </TabList>
       </Tabs>
-      <Button
-        mt="1"
-        mr="1"
-        size="sm"
-        variant={useColorModeValue("primary", "primaryDark")}
-      >
-        Write
-      </Button>
+      <Link href="/write">
+        <Button
+          mt="1"
+          mr="1"
+          size="sm"
+          variant={useColorModeValue("primary", "primaryDark")}
+        >
+          {pathname === "/write" ? "Publish" : "Write"}
+        </Button>
+      </Link>
     </>
   );
 };
@@ -73,16 +80,22 @@ export const Navbar = ({ isLoggedIn = true }) => {
   return (
     <Flex w="101%" mb="4" as="nav" bg={boxBg} boxShadow="lg">
       <Box mt="4" ml="4">
-        <Icon as={FaBurn} />
+        <Link href="/">
+          <Icon as={FaBurn} style={{ cursor: "pointer" }} />
+        </Link>
       </Box>
       <Box mt="4" ml="4">
-        <Heading size="small">FreeFlow.io</Heading>
+        <Link href="/">
+          <Heading size="small" style={{ cursor: "pointer" }}>
+            freeflo.io
+          </Heading>
+        </Link>
       </Box>
       <Spacer />
 
       <Box m="2">
         <Flex>
-          {isLoggedIn ? <LoggedInView/> : <LoggedOutView/>}
+          {isLoggedIn ? <LoggedInView /> : <LoggedOutView />}
           <IconButton
             size="sm"
             fontSize="lg"
