@@ -5,6 +5,7 @@ import { useRouter } from "next/router";
 import { Provider } from "react-redux";
 
 import configureStore from "../stores";
+import ToastController from "../components/ToastController";
 
 const pageToTitle = {
   "/": "Homepage",
@@ -40,6 +41,7 @@ function MyApp({ Component, pageProps }) {
   return (
     <ChakraProvider>
       <Provider store={store}>
+        <ToastController />
         <PageWrapper title={pageToTitle[pathname]}>
           <Component {...pageProps} />
         </PageWrapper>
