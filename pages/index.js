@@ -9,21 +9,23 @@ import { connect } from "react-redux";
 const recommendations = [
   {
     name: "nivy",
-    avatar: "https://bit.ly/dan-abramov",
+    avatar:
+      "https://avatars2.githubusercontent.com/u/34191104?s=400&u=db9b373c76a9e9b36b59ad676cc1bed43d7155f9&v=4",
     title: "@nivy",
     subtitle: "aka orange",
     iconindex: 3,
   },
   {
     name: "aipiox",
-    avatar: "https://bit.ly/dan-abramov",
+    avatar: "https://avatars1.githubusercontent.com/u/43301959?s=400&v=4",
     title: "@aipiox",
     subtitle: "robot revolution",
     iconindex: 3,
   },
   {
     name: "noor",
-    avatar: "https://bit.ly/dan-abramov",
+    avatar:
+      "https://avatars3.githubusercontent.com/u/30037359?s=400&u=9e1182dbf652b1fa06e8c388dcec1d1099d33fe1&v=4",
     title: "@noor",
     subtitle: "uwaterloo!",
     iconindex: 3,
@@ -32,22 +34,24 @@ const recommendations = [
 
 const requests = [
   {
-    name: "jarrod",
-    avatar: "https://bit.ly/dan-abramov",
-    title: "@nivy",
+    name: "jcserv",
+    avatar:
+      "https://avatars2.githubusercontent.com/u/45128231?s=400&u=96c06c111c351f4ea9bdb4171a10b3d2b04f3aba&v=4",
+    title: "@jcserv",
     subtitle: "typo fix",
     iconindex: 1,
   },
   {
     name: "aipiox",
-    avatar: "https://bit.ly/dan-abramov",
+    avatar: "https://avatars1.githubusercontent.com/u/43301959?s=400&v=4",
     title: "@aipiox",
     subtitle: "added paragraph",
     iconindex: 2,
   },
   {
     name: "noor",
-    avatar: "https://bit.ly/dan-abramov",
+    avatar:
+      "https://avatars3.githubusercontent.com/u/30037359?s=400&u=9e1182dbf652b1fa06e8c388dcec1d1099d33fe1&v=4",
     title: "@noor",
     subtitle: "rephrasing",
     iconindex: 0,
