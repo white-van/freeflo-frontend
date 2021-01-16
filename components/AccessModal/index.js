@@ -1,10 +1,9 @@
 import {
-  Button,
+  Center,
   Modal,
   ModalOverlay,
   ModalContent,
-  ModalHeader,
-  ModalFooter,
+  Heading,
   ModalBody,
   ModalCloseButton,
   Tab,
@@ -15,6 +14,8 @@ import {
 } from "@chakra-ui/react";
 import React, { useEffect, useState } from "react";
 import { connect } from "react-redux";
+
+import LoginForm from "../LoginForm";
 
 import { closeAllModals } from "../../stores/ui/actions";
 import { isShowingSelector } from "../../stores/ui/selectors";
@@ -35,13 +36,13 @@ export function AccessModal({
   }, [isLoginVisible, setTabIndex]);
 
   const handleTabsChange = (index) => {
-    console.log(index);
     setTabIndex(index);
   };
 
   return (
     <>
       <Modal
+        preserveScrollBarGap={true}
         isOpen={isLoginVisible || isSignupVisible}
         onClose={closeAllModals}
       >
@@ -59,22 +60,19 @@ export function AccessModal({
             </TabList>
             <TabPanels>
               <TabPanel>
-                <ModalHeader>Login</ModalHeader>
-                <ModalBody>Hey I'm the login</ModalBody>
+                <Center>
+                  <Heading as="h2" size="lg">
+                    Login
+                  </Heading>
+                </Center>
+                <LoginForm closeAllModals={closeAllModals} />
               </TabPanel>
               <TabPanel>
-                <ModalHeader>Signup</ModalHeader>
                 <ModalBody>Hey I'm the signup</ModalBody>
               </TabPanel>
             </TabPanels>
           </Tabs>
           <ModalCloseButton />
-          <ModalFooter>
-            <Button mr={3} variant="outline" onClick={closeAllModals}>
-              Close
-            </Button>
-            <Button colorScheme="pink">Login</Button>
-          </ModalFooter>
         </ModalContent>
       </Modal>
     </>
