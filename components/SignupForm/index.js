@@ -5,7 +5,6 @@ import {
   InputRightElement,
   FormControl,
   FormLabel,
-  FormErrorMessage,
   FormHelperText,
 } from "@chakra-ui/react";
 import { Form, withFormik } from "formik";
@@ -15,6 +14,8 @@ import { connect } from "react-redux";
 import * as Yup from "yup";
 
 import { closeAllModals } from "../../stores/ui/actions";
+import { signup } from "../../stores/user/actions";
+import { isPendingSelector } from "../../stores/user/selectors";
 
 export const SignupSchema = Yup.object().shape({
   username: Yup.string().required(),
@@ -27,6 +28,7 @@ export function SignupForm({
   closeAllModals,
   errors,
   handleSubmit,
+  isPending,
   setFieldValue,
   values: { username, full_name, email, password },
 }) {
@@ -89,6 +91,7 @@ export function SignupForm({
       </FormControl>
       <div>
         <Button
+          isLoading={isPending}
           m={4}
           type="submit"
           onClick={handleSubmit}
@@ -111,8 +114,11 @@ export function SignupForm({
 
 export const EnhancedLoginForm = withFormik({
   enabledReinitialize: true,
-  handleSubmit: ({ username, email, full_name, password }, { props: {} }) => {
-    console.log({ username, email, full_name, password });
+  handleSubmit: (
+    { username, email, full_name, password },
+    { props: { signup } }
+  ) => {
+    signup({ username, email, full_name, password });
   },
   mapPropsToValues: (props) => ({
     username: "",
@@ -125,8 +131,13 @@ export const EnhancedLoginForm = withFormik({
   validateOnChange: false,
 })(SignupForm);
 
-const ConnectedLoginForm = connect(null, {
+const mapStateToProps = (state) => ({
+  isPending: isPendingSelector(state),
+});
+
+const ConnectedLoginForm = connect(mapStateToProps, {
   closeAllModals,
+  signup,
 })(EnhancedLoginForm);
 
 export default ConnectedLoginForm;

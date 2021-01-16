@@ -42,7 +42,7 @@ export function LoginForm({
       <FormHelperText style={{ color: "red" }}>
         {errors && errors["username"]}
       </FormHelperText>
-      <FormControl id="password">
+      <FormControl id="login-password">
         <FormLabel>Password</FormLabel>
         <InputGroup size="md">
           <Input
