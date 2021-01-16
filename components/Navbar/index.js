@@ -82,7 +82,7 @@ export const Navbar = ({ isLoggedIn = true }) => {
 
       <Box m="2">
         <Flex>
-          {isLoggedIn ? <LoggedInView/> : <LoggedOutView/>}
+          {isLoggedIn ? <LoggedInView /> : <LoggedOutView />}
           <IconButton
             size="sm"
             fontSize="lg"

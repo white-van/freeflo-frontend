@@ -50,24 +50,35 @@ const FooterLink = ({ color, icon, href, label }) => (
   </Link>
 );
 
+function determineLineEnding(index) {
+  switch (index) {
+    case 2:
+      return ", & ";
+    case 3:
+      return "";
+    default:
+      return ", ";
+  }
+}
+
 const Footer = () => {
   return (
     <Box as="footer" className={styles.footer} textAlign="center">
       <Text mt={4} fontSize="md">
-        Made with{" "}
+        {"Made with "}
         <span aria-label="heart" role="img">
           &#128156;
-        </span>{" "}
-        by
+        </span>
+        {" by "}
         {contributors.map((contributor, index) => (
           <>
-            {`${index === 3 ? ", & " : ", "}`}
             <Link key={contributor.href} {...contributor}>
               {contributor.name}
             </Link>
+            {`${determineLineEnding(index)}`}
           </>
-        ))}{" "}
-        for{" "}
+        ))}
+        {" for "}
         <Link href="https://hackthenorth.com/" isExternal>
           Hack The North 2020++
         </Link>
