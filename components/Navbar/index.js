@@ -13,6 +13,7 @@ import {
   Icon,
 } from "@chakra-ui/react";
 import Link from "next/link";
+import { useRouter } from "next/router";
 import React from "react";
 import {
   FaMoon,
@@ -25,6 +26,9 @@ import {
 
 const LoggedInActions = [FaSearch, FaRegHeart, FaRegBell];
 const LoggedInView = () => {
+  const router = useRouter();
+  const { pathname } = router;
+
   return (
     <>
       <Tabs size="md" mt="1" mr="4" variant="soft-rounded">
@@ -43,7 +47,7 @@ const LoggedInView = () => {
           size="sm"
           variant={useColorModeValue("primary", "primaryDark")}
         >
-          Write
+          {pathname === "/write" ? "Publish" : "Write"}
         </Button>
       </Link>
     </>
