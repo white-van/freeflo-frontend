@@ -5,6 +5,7 @@ import { useRouter } from "next/router";
 import { Provider } from "react-redux";
 
 import configureStore from "../stores";
+import Footer from "../components/Footer";
 import ToastController from "../components/ToastController";
 
 const pageToTitle = {
@@ -13,10 +14,6 @@ const pageToTitle = {
 
 const Navbar = () => {
   return <div>Hi I'm the Navbar</div>;
-};
-
-const Footer = () => {
-  return <div>Hi I'm the Footer</div>;
 };
 
 const PageWrapper = ({ children, title }) => {
