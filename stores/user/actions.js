@@ -1,4 +1,4 @@
-import { createAction, createAsyncThunk } from "@reduxjs/toolkit";
+import { createAsyncThunk } from "@reduxjs/toolkit";
 import { displaySuccessToast, displayErrorToast } from "../ui/actions";
 import { formatName } from "../helpers";
 
@@ -6,9 +6,9 @@ export const userReducerName = "user";
 
 export const login = createAsyncThunk(
   formatName(userReducerName, "login"),
-  async ({ username, password }, { dispatch, rejectWithValue }) => {
+  async ({ email, password }, { dispatch, rejectWithValue }) => {
     const requestBody = {
-      username,
+      email,
       password,
     };
     try {

@@ -50,10 +50,6 @@ const userReducer = createReducer(initialState, (builder) => {
     state.signup.error = payload;
     state.signup.isPending = false;
   });
-  /*
-  builder.addCase(displayToast, (state, action) => {
-    state.toasts = [...state.toasts, { ...action.payload }];
-  });*/
 });
 
 export default userReducer;

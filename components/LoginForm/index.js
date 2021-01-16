@@ -5,7 +5,6 @@ import {
   InputRightElement,
   FormControl,
   FormLabel,
-  FormErrorMessage,
   FormHelperText,
 } from "@chakra-ui/react";
 import { Form, withFormik } from "formik";
@@ -19,7 +18,7 @@ import { login } from "../../stores/user/actions";
 import { isLoginPendingSelector } from "../../stores/user/selectors";
 
 export const LoginSchema = Yup.object().shape({
-  username: Yup.string().required(),
+  email: Yup.string().email().required(),
   password: Yup.string().required(),
 });
 
@@ -29,22 +28,22 @@ export function LoginForm({
   handleSubmit,
   isPending,
   setFieldValue,
-  values: { username, password },
+  values: { email, password },
 }) {
   const [show, setShow] = useState(false);
   const handleClick = () => setShow(!show);
   return (
     <Form>
-      <FormControl id="username">
-        <FormLabel>Username</FormLabel>
+      <FormControl id="login-email">
+        <FormLabel>Email</FormLabel>
         <Input
-          value={username}
-          onChange={(e) => setFieldValue("username", e.target.value)}
-          placeholder="Enter username"
+          value={email}
+          onChange={(e) => setFieldValue("email", e.target.value)}
+          placeholder="Enter email"
         />
       </FormControl>
       <FormHelperText style={{ color: "red" }}>
-        {errors && errors["username"]}
+        {errors && errors["email"]}
       </FormHelperText>
       <FormControl id="login-password" mt={2}>
         <FormLabel>Password</FormLabel>
@@ -98,11 +97,11 @@ const mapStateToProps = (state) => ({
 
 export const EnhancedLoginForm = withFormik({
   enabledReinitialize: true,
-  handleSubmit: ({ username, password }, { props: { login } }) => {
-    login({ username, password });
+  handleSubmit: ({ email, password }, { props: { login } }) => {
+    login({ email, password });
   },
   mapPropsToValues: (props) => ({
-    username: "",
+    email: "",
     password: "",
   }),
   validationSchema: () => LoginSchema,
