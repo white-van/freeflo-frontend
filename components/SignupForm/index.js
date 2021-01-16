@@ -1,32 +1,132 @@
 import {
   Button,
-  Modal,
-  ModalOverlay,
-  ModalContent,
-  ModalHeader,
-  ModalFooter,
-  ModalBody,
-  ModalCloseButton,
-  Tab,
-  Tabs,
-  TabList,
-  TabPanel,
-  TabPanels,
+  Input,
+  InputGroup,
+  InputRightElement,
+  FormControl,
+  FormLabel,
+  FormErrorMessage,
+  FormHelperText,
 } from "@chakra-ui/react";
-import React, { useEffect, useState } from "react";
+import { Form, withFormik } from "formik";
+import React, { useState } from "react";
+import { AiFillEyeInvisible, AiFillEye } from "react-icons/ai";
+import { connect } from "react-redux";
+import * as Yup from "yup";
 
-export function LoginForm({}) {
-  return <></>;
+import { closeAllModals } from "../../stores/ui/actions";
+
+export const SignupSchema = Yup.object().shape({
+  username: Yup.string().required(),
+  full_name: Yup.string().required(),
+  email: Yup.string().email().required(),
+  password: Yup.string().required(),
+});
+
+export function SignupForm({
+  closeAllModals,
+  errors,
+  handleSubmit,
+  setFieldValue,
+  values: { username, full_name, email, password },
+}) {
+  const [show, setShow] = useState(false);
+  const handleClick = () => setShow(!show);
+  return (
+    <Form>
+      <FormControl id="username">
+        <FormLabel>Username</FormLabel>
+        <Input
+          value={username}
+          onChange={(e) => setFieldValue("username", e.target.value)}
+        />
+      </FormControl>
+      <FormHelperText style={{ color: "red" }}>
+        {errors && errors["username"]}
+      </FormHelperText>
+      <FormControl id="email">
+        <FormLabel>Email address</FormLabel>
+        <Input
+          value={email}
+          onChange={(e) => setFieldValue("email", e.target.value)}
+        />
+      </FormControl>
+      <FormHelperText style={{ color: "red" }}>
+        {errors && errors["email"]}
+      </FormHelperText>
+      <FormControl id="full_name">
+        <FormLabel>Full Name</FormLabel>
+        <Input
+          value={full_name}
+          onChange={(e) => setFieldValue("full_name", e.target.value)}
+        />
+      </FormControl>
+      <FormHelperText style={{ color: "red" }}>
+        {errors && errors["full_name"]}
+      </FormHelperText>
+      <FormControl id="password">
+        <FormLabel>Password</FormLabel>
+        <InputGroup size="md">
+          <Input
+            onChange={(e) => setFieldValue("password", e.target.value)}
+            value={password}
+            pr="4.5rem"
+            type={show ? "text" : "password"}
+            placeholder="Enter password"
+          />
+          <InputRightElement width="4.5rem">
+            <Button variant="ghost" h="1.75rem" size="sm" onClick={handleClick}>
+              {show ? <AiFillEyeInvisible /> : <AiFillEye />}
+            </Button>
+          </InputRightElement>
+        </InputGroup>
+        <FormHelperText style={{ color: "red" }}>
+          {errors && errors["password"]}
+        </FormHelperText>
+        <FormHelperText>
+          Click on the eye icon to peek at your password.
+        </FormHelperText>
+      </FormControl>
+      <div>
+        <Button
+          m={4}
+          type="submit"
+          onClick={handleSubmit}
+          style={{ float: "right" }}
+        >
+          Login
+        </Button>
+        <Button
+          m={4}
+          variant="outline"
+          onClick={closeAllModals}
+          style={{ float: "right" }}
+        >
+          Close
+        </Button>
+      </div>
+    </Form>
+  );
 }
 
-const mapStateToProps = (state) => {
-  const isShowing = isShowingSelector(state);
-  return {
-    isLoginVisible: isShowing.login,
-    isSignupVisible: isShowing.signup,
-  };
-};
+export const EnhancedLoginForm = withFormik({
+  enabledReinitialize: true,
+  handleSubmit: ({ username, email, full_name, password }, { props: {} }) => {
+    console.log({ username, email, full_name, password });
+  },
+  mapPropsToValues: (props) => ({
+    username: "",
+    email: "",
+    full_name: "",
+    password: "",
+  }),
+  validationSchema: () => SignupSchema,
+  validateOnBlur: false,
+  validateOnChange: false,
+})(SignupForm);
 
-export default connect(mapStateToProps, {
+const ConnectedLoginForm = connect(null, {
   closeAllModals,
-})(AccessModal);
+})(EnhancedLoginForm);
+
+export default ConnectedLoginForm;

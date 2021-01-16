@@ -16,6 +16,7 @@ import React, { useEffect, useState } from "react";
 import { connect } from "react-redux";
 
 import LoginForm from "../LoginForm";
+import SignupForm from "../SignupForm";
 
 import { closeAllModals } from "../../stores/ui/actions";
 import { isShowingSelector } from "../../stores/ui/selectors";
@@ -56,7 +57,7 @@ export function AccessModal({
           >
             <TabList justifyContent="center" m={4}>
               <Tab>Login</Tab>
-              <Tab>Signup</Tab>
+              <Tab>Sign up</Tab>
             </TabList>
             <TabPanels>
               <TabPanel>
@@ -68,7 +69,12 @@ export function AccessModal({
                 <LoginForm closeAllModals={closeAllModals} />
               </TabPanel>
               <TabPanel>
-                <ModalBody>Hey I'm the signup</ModalBody>
+                <Center>
+                  <Heading as="h2" size="lg">
+                    Sign up
+                  </Heading>
+                </Center>
+                <SignupForm closeAllModals={closeAllModals} />
               </TabPanel>
             </TabPanels>
           </Tabs>

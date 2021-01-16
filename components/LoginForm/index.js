@@ -30,16 +30,18 @@ export function LoginForm({
 }) {
   const [show, setShow] = useState(false);
   const handleClick = () => setShow(!show);
-  console.log(errors);
   return (
     <Form>
-      <FormControl id="email">
+      <FormControl id="username">
         <FormLabel>Username</FormLabel>
         <Input
           value={username}
           onChange={(e) => setFieldValue("username", e.target.value)}
         />
       </FormControl>
+      <FormHelperText style={{ color: "red" }}>
+        {errors && errors["username"]}
+      </FormHelperText>
       <FormControl id="password">
         <FormLabel>Password</FormLabel>
         <InputGroup size="md">
@@ -56,6 +58,9 @@ export function LoginForm({
             </Button>
           </InputRightElement>
         </InputGroup>
+        <FormHelperText style={{ color: "red" }}>
+          {errors && errors["password"]}
+        </FormHelperText>
         <FormHelperText>
           Click on the eye icon to peek at your password.
         </FormHelperText>
