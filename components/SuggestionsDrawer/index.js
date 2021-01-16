@@ -19,7 +19,7 @@ export default function SuggestionsDrawer({
   const [search, setSearch] = useState("");
 
   return (
-    <Drawer placement="right" onClose={onClose} isOpen={isOpen}>
+    <Drawer blockScrollOnMount={false} scrollBehavior="outside" placement="right" onClose={onClose} isOpen={isOpen}>
       <DrawerOverlay />
       <DrawerContent>
         <DrawerCloseButton />
