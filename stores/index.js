@@ -5,7 +5,14 @@ import thunk from "redux-thunk";
 import { uiReducerName } from "./ui/actions";
 import uiReducer from "./ui/reducer";
 
-const createRootReducer = () => combineReducers({ [uiReducerName]: uiReducer });
+import { userReducerName } from "./user/actions";
+import userReducer from "./user/reducer";
+
+const createRootReducer = () =>
+  combineReducers({
+    [uiReducerName]: uiReducer,
+    [userReducerName]: userReducer,
+  });
 
 export default function configureStore(preloadedState) {
   const store = createStore(

@@ -15,6 +15,7 @@ import {
 import Link from "next/link";
 import { useRouter } from "next/router";
 import React from "react";
+import { connect } from "react-redux";
 import {
   FaMoon,
   FaSun,
@@ -23,6 +24,8 @@ import {
   FaRegHeart,
   FaRegBell,
 } from "react-icons/fa";
+
+import { toggleModal } from "../../stores/ui/actions";
 
 const LoggedInActions = [FaSearch, FaRegHeart, FaRegBell];
 const LoggedInView = () => {
@@ -55,11 +58,12 @@ const LoggedInView = () => {
 };
 
 const LoggedOutActions = ["Sign up", "Login"];
-const LoggedOutView = () => {
+const LoggedOutView = ({ toggleModal }) => {
   return (
     <>
       {LoggedOutActions.map((text, index) => (
         <Button
+          onClick={() => toggleModal(text.toLowerCase().replace(/\s/g, ""))}
           m="1"
           key={index}
           size="sm"
@@ -71,7 +75,7 @@ const LoggedOutView = () => {
     </>
   );
 };
-export const Navbar = ({ isLoggedIn = true }) => {
+export const Navbar = ({ isLoggedIn = false, toggleModal }) => {
   const { toggleColorMode } = useColorMode();
   const SwitchIcon = useColorModeValue(FaMoon, FaSun);
   const nextMode = useColorModeValue("dark", "light");
@@ -95,7 +99,11 @@ export const Navbar = ({ isLoggedIn = true }) => {
 
       <Box m="2">
         <Flex>
-          {isLoggedIn ? <LoggedInView /> : <LoggedOutView />}
+          {isLoggedIn ? (
+            <LoggedInView />
+          ) : (
+            <LoggedOutView toggleModal={toggleModal} />
+          )}
           <IconButton
             size="sm"
             fontSize="lg"
@@ -112,4 +120,7 @@ export const Navbar = ({ isLoggedIn = true }) => {
     </Flex>
   );
 };
-export default Navbar;
+
+export default connect(null, {
+  toggleModal,
+})(Navbar);
