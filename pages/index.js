@@ -6,22 +6,20 @@ import { connect } from "react-redux";
 
 function Home({ closeAllToasts, displaySuccessToast }) {
   return (
-    <>
-      <main className={styles.main}>
-        <h1 className={styles.title}>
-          Welcome to <a href="https://nextjs.org">Next.js!</a>
-        </h1>
-        <Button
-          colorScheme="blue"
-          onClick={() => displaySuccessToast("u fool", "im monky")}
-        >
-          Click me to dispatch a toast
-        </Button>
-        <Button colorScheme="red" onClick={() => closeAllToasts()}>
-          Click me to dismiss all toasts
-        </Button>
-      </main>
-    </>
+    <div className={styles.main}>
+      <h1 className={styles.title}>
+        Welcome to <a href="https://nextjs.org">Next.js!</a>
+      </h1>
+      <Button
+        colorScheme="blue"
+        onClick={() => displaySuccessToast("u fool", "im monky")}
+      >
+        Click me to dispatch a toast
+      </Button>
+      <Button colorScheme="red" onClick={() => closeAllToasts()}>
+        Click me to dismiss all toasts
+      </Button>
+    </div>
   );
 }
 
