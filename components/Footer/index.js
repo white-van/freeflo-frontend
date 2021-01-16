@@ -25,6 +25,25 @@ const links = [
   },
 ];
 
+const contributors = [
+  {
+    name: "Noredeen Al-Zu'bi",
+    href: "https://github.com/noredeen-alzubi",
+  },
+  {
+    name: "Ritvik Bhardwaj",
+    href: "https://github.com/AipioxTechson",
+  },
+  {
+    name: "Niveditha Kani",
+    href: "https://github.com/NivedithaK",
+  },
+  {
+    name: "Jarrod Servilla",
+    href: "http://jarrodservilla.com",
+  },
+];
+
 const FooterLink = ({ color, icon, href, label }) => (
   <Link display="inline-block" href={href} aria-label={label} isExternal>
     <Icon as={icon} fontSize="xl" color="gray.400" _hover={{ color }} />
@@ -39,22 +58,15 @@ const Footer = () => {
         <span aria-label="heart" role="img">
           &#128156;
         </span>{" "}
-        by{" "}
-        <Link href="https://github.com/noredeen-alzubi" isExternal>
-          Noredeen Al-Zu'bi
-        </Link>
-        ,{" "}
-        <Link href="https://github.com/AipioxTechson" isExternal>
-          Ritvik Bhardwaj
-        </Link>
-        ,{" "}
-        <Link href="https://github.com/NivedithaK" isExternal>
-          Niveditha Kani
-        </Link>
-        , &{" "}
-        <Link href="http://jarrodservilla.com" isExternal>
-          Jarrod Servilla
-        </Link>{" "}
+        by
+        {contributors.map((contributor, index) => (
+          <>
+            {`${index === 3 ? ", & " : ", "}`}
+            <Link key={contributor.href} {...contributor}>
+              {contributor.name}
+            </Link>
+          </>
+        ))}{" "}
         for{" "}
         <Link href="https://hackthenorth.com/" isExternal>
           Hack The North 2020++
