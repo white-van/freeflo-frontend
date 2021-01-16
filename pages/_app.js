@@ -2,8 +2,8 @@ import "../styles/globals.css";
 import { ChakraProvider } from "@chakra-ui/react";
 import Head from "next/head";
 import { useRouter } from "next/router";
-import Navbar from '../components/Navbar';
-import theme from '../theme';
+import Navbar from "../components/Navbar";
+import theme from "../theme";
 import { Provider } from "react-redux";
 
 import configureStore from "../stores";
@@ -13,7 +13,6 @@ import ToastController from "../components/ToastController";
 const pageToTitle = {
   "/": "Homepage",
 };
-
 
 const PageWrapper = ({ children, title }) => {
   return (
