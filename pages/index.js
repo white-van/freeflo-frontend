@@ -3,13 +3,12 @@ import { Button } from "@chakra-ui/react";
 
 import { closeAllToasts, displaySuccessToast } from "../stores/ui/actions";
 import { connect } from "react-redux";
+import Homepage from "../components/Homepage"
 
 function Home({ closeAllToasts, displaySuccessToast }) {
   return (
     <div className={styles.main}>
-      <h1 className={styles.title}>
-        Welcome to <a href="https://nextjs.org">Next.js!</a>
-      </h1>
+      <Homepage />
       <Button
         colorScheme="blue"
         onClick={() => displaySuccessToast("u fool", "im monky")}
