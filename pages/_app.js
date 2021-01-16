@@ -2,14 +2,13 @@ import "../styles/globals.css";
 import { ChakraProvider } from "@chakra-ui/react";
 import Head from "next/head";
 import { useRouter } from "next/router";
+import Navbar from '../components/Navbar';
+import theme from '../theme';
 
 const pageToTitle = {
   "/": "Homepage",
 };
 
-const Navbar = () => {
-  return <div>Hi I'm the Navbar</div>;
-};
 
 const Footer = () => {
   return <div>Hi I'm the Footer</div>;
@@ -34,7 +33,7 @@ function MyApp({ Component, pageProps }) {
   const { pathname } = router;
 
   return (
-    <ChakraProvider>
+    <ChakraProvider theme={theme}>
       <PageWrapper title={pageToTitle[pathname]}>
         <Component {...pageProps} />
       </PageWrapper>
