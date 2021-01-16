@@ -25,3 +25,15 @@ const displayToastWrapper = (title, description, isSticky, variant) => {
 export const displaySuccessToast = (title, description, isSticky) => {
   return displayToastWrapper(title, description, isSticky, "success");
 };
+
+export const displayErrorToast = (title, description, isSticky) => {
+  return displayToastWrapper(title, description, isSticky, "error");
+};
+
+export const displayWarningToast = (title, description, isSticky) => {
+  return displayToastWrapper(title, description, isSticky, "warning");
+};
+
+export const displayInfoToast = (title, description, isSticky) => {
+  return displayToastWrapper(title, description, isSticky, "info");
+};
