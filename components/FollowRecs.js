@@ -7,7 +7,7 @@ function FollowRecs() {
   return (
     <div>
       <Box w="300px">
-        <Heading as="h3" size="lg">
+        <Heading as="h4" size="md">
             Who to Follow
         </Heading>
         <Divider />
