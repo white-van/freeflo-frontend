@@ -1,8 +1,8 @@
-import { connect } from "react-redux";
 import { Button, Center, Grid, GridItem, Text, Heading } from "@chakra-ui/react";
 
-function Landing() {
-  return (
+function Welcome() {
+
+    return (
     <div>
         <Center>
         <Grid
@@ -38,4 +38,4 @@ function Landing() {
   );
 }
 
-export default connect(null, null)(Landing);
+export default Welcome;
