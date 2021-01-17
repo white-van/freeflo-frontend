@@ -36,6 +36,11 @@ export default function Review({ reviewData }) {
     setPreviewText(changeText);
   };
 
+  const acceptModification = (changeText) => {
+    if (text === changeText) return;
+    setText(changeText);
+  };
+
   const resetPreview = () => {
     setPreviewText(text);
   };
@@ -48,6 +53,7 @@ export default function Review({ reviewData }) {
   };
 
   const SuggestionProps = {
+    acceptModification,
     resetPreview,
     previewSuggestion,
     modifySuggestion,
@@ -87,16 +93,20 @@ export async function getStaticProps({ params }) {
     props: {
       reviewData: {
         id: 1,
-        title: "Why Django Sucks",
-        text: "Ok so basically i'm monky",
-        img: "https://miro.medium.com/max/1000/1*czRJ6n4y6sXGWmaRwfsVow.jpeg",
+        title: "Becoming a MCS TA at UTM",
+        text:
+          "TAs are an interal part of your universiy caeer — they lead tutorials/labs, provide guidance to students, mark assignments and tests, and answer Piazza questions. (No doubt you’ve already seen Naaz’s speedy response time if you’ve been TAed in one of her courses). The job is (in my opinion) really great — being able to see the progression of students’ understanding and helping them through the course content is really fulfilling. By teaching it, you also get to solidify your understanding in the course. In addition, the pay is solid as an undergrad — the current pay is <b>$46.24/hr</b> plus vacation pay. <br/><br/>By now, you’re probably thinking: wow sounds like a really great gig. Where do I start?",
+        img:
+          "https://mathsnoproblem.com/wp-content/uploads/2019/10/maths-no-problem-blog-november-04-teaching-assistants-adding-value-and-improving-learner-outcomes-HERO-1140x712.jpg",
         diffs: [
           {
             id: 1,
             author: "jcserv",
             src:
               "https://avatars2.githubusercontent.com/u/45128231?s=400&u=96c06c111c351f4ea9bdb4171a10b3d2b04f3aba&v=4",
-            summary: "The quick brown fox",
+            summary: "Added formatting",
+            text:
+              "TAs are an integral part of your university career — they lead tutorials/labs, provide guidance to students, mark assignments and tests, and answer Piazza questions. (No doubt you’ve already seen Naaz’s speedy response time if you’ve been TAed in one of her courses). The job is (in my opinion) really great — being able to see the progression of students’ understanding and helping them through the course content is <b>really fulfilling.</b> By teaching it, you also get to solidify your understanding in the course. In addition, the pay is solid as an undergrad — the current pay is <b>$46.24/hr</b> plus vacation pay. <br/><br/>By now, you’re probably thinking: wow sounds like a really great gig. <b>Where do I start?</b>",
             linesAdded: 1,
             linesRemoved: 0,
             status: 0,
@@ -106,7 +116,9 @@ export async function getStaticProps({ params }) {
             author: "nivy",
             src:
               "https://avatars2.githubusercontent.com/u/34191104?s=400&u=db9b373c76a9e9b36b59ad676cc1bed43d7155f9&v=4",
-            summary: "Although there are many ...",
+            text:
+              "TAs are an integral part of your university career — they lead tutorials/labs, provide guidance to students, mark assignments and tests, and answer Piazza questions. (No doubt you’ve already seen Naaz’s speedy response time if you’ve been TAed in one of her courses). The job is (in my opinion) really great — being able to see the progression of students’ understanding and helping them through the course content is really fulfilling. By teaching it, you also get to solidify your understanding in the course. In addition, the pay is solid as an undergrad — the current pay is <b>$46.24/hr</b> plus vacation pay. <br/><br/>By now, you’re probably thinking: wow sounds like a really great gig. Where do I start?",
+            summary: "Typo fixes",
             linesAdded: 22,
             linesRemoved: 4,
             status: -1,
