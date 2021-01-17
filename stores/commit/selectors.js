@@ -1,20 +1,16 @@
 import { createSelector } from "reselect";
 
-import { userReducerName } from "./actions";
-import { userAdapter } from "./reducer";
+import { commitReducerName } from "./actions";
+import { commitAdapter } from "./reducer";
 
-const userStoreSelector = (state) => state[userReducerName];
+const commitStoreSelector = (state) => state[commitReducerName];
 
-export const usersSelector = userAdapter.getSelectors(userStoreSelector);
+export const commitsSelector = commitAdapter.getSelectors(commitStoreSelector);
 
+/*
 export const userDataSelector = createSelector(
   userStoreSelector,
   (userStore) => userStore.userData
-);
-
-export const isAuthenticatedSelector = createSelector(
-  userDataSelector,
-  (userData) => userData.isAuthenticated
 );
 
 export const signupSelector = createSelector(
@@ -35,4 +31,4 @@ export const loginSelector = createSelector(
 export const isLoginPendingSelector = createSelector(
   loginSelector,
   (login) => login.isPending
-);
+);*/

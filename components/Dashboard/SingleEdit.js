@@ -1,4 +1,6 @@
+import Link from "next/link";
 import React from "react";
+import { connect } from "react-redux";
 import {
   Button,
   Flex,
@@ -13,7 +15,9 @@ import { CheckIcon, CloseIcon } from "@chakra-ui/icons";
 import { BiDotsHorizontalRounded } from "react-icons/bi";
 import { AiOutlineUserAdd } from "react-icons/ai";
 
-function ChooseIcon({ iconindex }) {
+import { displaySuccessToast } from "../../stores/ui/actions";
+
+function ChooseIcon({ iconindex, name, displaySuccessToast }) {
   if (iconindex == 0) {
     return (
       <Button variant="ghost">
@@ -39,6 +43,7 @@ function ChooseIcon({ iconindex }) {
     return (
       <IconButton
         aria-label="Follow"
+        onClick={() => displaySuccessToast("", `Added @${name} as a friend`)}
         variant="ghost"
         icon={<AiOutlineUserAdd />}
       />
@@ -46,22 +51,35 @@ function ChooseIcon({ iconindex }) {
   }
 }
 
-function SingleEdit({ avatar, iconindex, name, subtitle, title }) {
+function SingleEdit({
+  avatar,
+  iconindex,
+  name,
+  subtitle,
+  title,
+  displaySuccessToast,
+}) {
   return (
     <div>
       <Flex>
         <HStack w="300px" spacing="20px">
           <Avatar name={name} src={avatar} />
           <div>
-            <Text fontWeight="extrabold"> {title} </Text>
+            <Link href="/">{title}</Link>
             <Text> {subtitle} </Text>
           </div>
           <Spacer />
-          <ChooseIcon iconindex={iconindex} />
+          <ChooseIcon
+            name={name}
+            displaySuccessToast={displaySuccessToast}
+            iconindex={iconindex}
+          />
         </HStack>
       </Flex>
     </div>
   );
 }
 
-export default SingleEdit;
+export default connect(null, {
+  displaySuccessToast,
+})(SingleEdit);

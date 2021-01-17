@@ -6,11 +6,12 @@ import RelatedSection from "../../components/Article/RelatedSection";
 
 function Read() {
   return (
-  <div>
-    <Article isReadOnly={true} />
-    <CommentSection />
-    <RelatedSection />
-  </div>
-  )}
+    <div>
+      <Article isReadOnly={true} />
+      <CommentSection />
+      <RelatedSection />
+    </div>
+  );
+}
 
 export default Read;
