@@ -12,6 +12,11 @@ export const userDataSelector = createSelector(
   (userStore) => userStore.userData
 );
 
+export const isAuthenticatedSelector = createSelector(
+  userDataSelector,
+  (userData) => userData.isAuthenticated
+);
+
 export const signupSelector = createSelector(
   userStoreSelector,
   (userStore) => userStore.signup
