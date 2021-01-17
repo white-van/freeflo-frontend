@@ -10,35 +10,36 @@ const featureIcon =
   "https://miro.medium.com/fit/c/262/262/1*UKEsrHsZRxFk6XTl51pX5g.jpeg";
 const featureTitle = "How to Be a Fashion-Loving Minimalist";
 const featureTimestamp = "5 hours ago";
-const desc =
-  "For a given source node in the graph, the algorithm finds the shortest path between that node and every other.[8]:196–206 It can also be used for finding the shortest paths from a single node to a single destination node by stopping the algorithm once the shortest path to the destination node has been determined.";
-
 export const mockRecommendedArticles = [
   {
     img: featureEpic,
-    desc: desc,
+    desc:
+      "I'll admit it, amongst my friends I'm known as the Consumer, the Shopaholic, the Big Spender, etc.  But the irony is that I am also constantly trying to simplify my life.",
     title: featureAuthor,
     subtitle: featureTitle,
     timestamp: featureTimestamp,
     avatar: featureIcon,
   },
   {
-    img: pic,
+    img:
+      "https://automationpanda.files.wordpress.com/2017/09/django-logo-negative.png?w=620",
     title: "Why Django Sucks",
-    subtitle,
+    subtitle:
+      "What sucks about Django? Asynchronous is a bit of a pain. Http 2 pipelines aren’t easy. Django was designed and written for py2 a long while ago.",
     timestamp: "2 hours ago",
   },
   {
-    img: pic,
+    img: "https://miro.medium.com/max/3840/1*yjH3SiDaVWtpBX0g_2q68g.png",
     title: "React 101",
-    subtitle,
+    subtitle:
+      "React is the hottest JavaScript framework on the market - but why?",
     timestamp: "5 hours ago",
   },
   {
     img: pic,
     title: "Cool article",
     subtitle,
-    timestamp: "5 hours ago",
+    timestamp: "2 days ago",
   },
 ];
 

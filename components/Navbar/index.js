@@ -30,6 +30,34 @@ import { isAuthenticatedSelector } from "../../stores/user/selectors";
 import { toggleModal } from "../../stores/ui/actions";
 
 const LoggedInActions = [FaSearch, FaRegBell];
+
+const drawerItems = [
+  {
+    href: "/",
+    name: "Dashboard",
+  },
+  {
+    href: "/user",
+    name: "Profile",
+  },
+  {
+    href: "/read",
+    name: "Browse articles",
+  },
+  {
+    href: "/write",
+    name: "Write a new story",
+  },
+  {
+    href: "/",
+    name: "Settings",
+  },
+  {
+    href: "/",
+    name: "Log out",
+  },
+];
+
 const LoggedInView = () => {
   const router = useRouter();
   const { pathname } = router;
@@ -65,28 +93,13 @@ const LoggedInView = () => {
           />
         </MenuButton>
         <MenuList>
-          <Link href="/">
-            <MenuItem>Dashboard</MenuItem>
-          </Link>
-          <Link href="/profile">
-            <MenuItem>Profile</MenuItem>
-          </Link>
-          <Link href="/read">
-            <MenuItem>Browse articles</MenuItem>
-          </Link>
-          <MenuItem>
-            <Link href="/write">Pending reviews</Link>
-          </MenuItem>
-          <MenuItem>
-            <Link href="/write">Your reviews</Link>
-          </MenuItem>
-          <MenuDivider />
-          <Link href="/welcome">
-            <MenuItem>Settings</MenuItem>
-          </Link>
-          <Link href="/welcome">
-            <MenuItem>Log out</MenuItem>
-          </Link>
+          {drawerItems.map((item, index) => {
+            return (
+              <Link key={index} href={item.href}>
+                <MenuItem>{item.name}</MenuItem>
+              </Link>
+            );
+          })}
         </MenuList>
       </Menu>
     </>

@@ -14,10 +14,9 @@ import ToastController from "../components/ToastController";
 
 const pageToTitle = {
   "/": "freeflo.io",
-  "/welcome": "freeflo.io - Welcome",
   "/write": "freeflo.io - Write a new article",
   "/read": "freeflo.io - Read and edit an article",
-  "/profile": "freeflo.io - Your profile",
+  "/user": "freeflo.io - View a profile",
 };
 
 const PageWrapper = ({ children, title }) => {

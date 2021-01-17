@@ -1,6 +1,6 @@
 import styles from "../../styles/Home.module.css";
 import { Center, Grid, GridItem } from "@chakra-ui/react";
-import RecommendedArticleList from "../Dashboard/RecommendedArticleList";
+import ArticleList from "../Dashboard/ArticleList";
 import MegaFeature from "../Dashboard/MegaFeature";
 import SidebarRecs from "../Dashboard/SidebarRecs";
 
@@ -19,9 +19,7 @@ function Dashboard({ recommendedArticles, reviews, suggestedUsers }) {
         <Grid templateColumns="repeat(3, 1fr)" className={styles.main}>
           <GridItem colSpan={2} mr={10}>
             <MegaFeature {...recommendedArticles[0]} />
-            <RecommendedArticleList
-              recommendedArticles={recommendedArticles.slice(1)}
-            />
+            <ArticleList articles={recommendedArticles.slice(1)} />
           </GridItem>
           <GridItem colSpan={1} mb={28}>
             <SidebarRecs title="Review Status" data={reviews} />

@@ -16,7 +16,8 @@ import {
 } from "@chakra-ui/react";
 import styles from "../../styles/Home.module.css";
 import { FaFacebook, FaTwitter } from "react-icons/fa";
-import ListSection from "../../components/Dashboard/ListSection";
+import ArticleList from "../../components/Dashboard/ArticleList";
+import { mockRecommendedArticles } from "../../testing/data";
 
 function Profile() {
   return (
@@ -74,10 +75,10 @@ function Profile() {
 
             <TabPanels>
               <TabPanel>
-                <ListSection />
+                <ArticleList articles={mockRecommendedArticles} />
               </TabPanel>
               <TabPanel>
-                <ListSection />
+                <ArticleList articles={mockRecommendedArticles} />
               </TabPanel>
             </TabPanels>
           </Tabs>
