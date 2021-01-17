@@ -18,17 +18,11 @@ import {
   MenuButton,
   MenuList,
   MenuItem,
-  MenuItemOption,
-  MenuGroup,
-  MenuOptionGroup,
-  MenuIcon,
-  MenuCommand,
   MenuDivider,
 } from "@chakra-ui/react"
 import Link from "next/link";
 import { useRouter } from "next/router";
 import React from "react";
-import { connect } from "react-redux";
 import {
   FaMoon,
   FaSun,
@@ -38,17 +32,6 @@ import {
   FaRegBell,
 } from "react-icons/fa";
 
-import { toggleModal } from "../../stores/ui/actions";
-
-function pathToBtnLabel(path) {
-  if (path.startsWith("/review")) {
-    return "Submit Review";
-  } else if (path === "/write") {
-    return "Publish";
-  } else {
-    return "Write";
-  }
-}
 
 const LoggedInActions = [FaSearch, FaRegHeart, FaRegBell];
 const LoggedInView = () => {
@@ -73,20 +56,62 @@ const LoggedInView = () => {
           size="sm"
           variant={useColorModeValue("primary", "primaryDark")}
         >
-          {pathToBtnLabel(pathname)}
+          {pathname === "/write" ? "Publish" : "Write"}
         </Button>
       </Link>
+      <Menu>
+          <MenuButton as={Button} variant="ghost" aria-label="Search database" >
+            <Avatar h="30px" w="30px" name="Dan Abrahmov" src="https://bit.ly/dan-abramov" />
+          </MenuButton>
+          <MenuList>
+          <Link href="/">
+            <MenuItem>
+              Dashboard
+            </MenuItem>
+            </Link>
+            <Link href="/profile">
+            <MenuItem>
+              Profile
+            </MenuItem>
+            </Link>
+            <Link href="/read">
+            <MenuItem>
+              Browse articles
+            </MenuItem>
+            </Link>
+            <MenuItem>
+              <Link href="/write">
+              Pending reviews
+              </Link>
+            </MenuItem>
+            <MenuItem>
+              <Link href="/write">
+              Your reviews
+              </Link>
+            </MenuItem>
+            <MenuDivider />
+            <Link href="/welcome">
+            <MenuItem>
+              Settings
+            </MenuItem>
+            </Link>
+            <Link href="/welcome">
+            <MenuItem>
+              Log out
+            </MenuItem>
+            </Link>
+          </MenuList>
+        </Menu>
     </>
   );
 };
 
 const LoggedOutActions = ["Sign up", "Login"];
-const LoggedOutView = ({ toggleModal }) => {
+const LoggedOutView = () => {
   return (
     <>
       {LoggedOutActions.map((text, index) => (
         <Button
-          onClick={() => toggleModal(text.toLowerCase().replace(/\s/g, ""))}
           m="1"
           key={index}
           size="sm"
@@ -98,7 +123,7 @@ const LoggedOutView = ({ toggleModal }) => {
     </>
   );
 };
-export const Navbar = ({ isLoggedIn = false, toggleModal }) => {
+export const Navbar = ({ isLoggedIn = false }) => {
   const { toggleColorMode } = useColorMode();
   const SwitchIcon = useColorModeValue(FaMoon, FaSun);
   const nextMode = useColorModeValue("dark", "light");
@@ -122,11 +147,8 @@ export const Navbar = ({ isLoggedIn = false, toggleModal }) => {
 
       <Box m="2">
         <Flex>
-          {isLoggedIn ? (
-            <LoggedInView />
-          ) : (
-            <LoggedOutView toggleModal={toggleModal} />
-          )}
+          {isLoggedIn ? <LoggedInView /> : <LoggedOutView />}
+
           <IconButton
             size="sm"
             fontSize="lg"
@@ -143,7 +165,4 @@ export const Navbar = ({ isLoggedIn = false, toggleModal }) => {
     </Flex>
   );
 };
-
-export default connect(null, {
-  toggleModal,
-})(Navbar);
+export default Navbar;
