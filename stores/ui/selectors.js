@@ -8,3 +8,8 @@ export const toastsSelector = createSelector(
   uiStoreSelector,
   (uiStore) => uiStore.toasts
 );
+
+export const isShowingSelector = createSelector(
+  uiStoreSelector,
+  (uiStore) => uiStore.isShowing
+);

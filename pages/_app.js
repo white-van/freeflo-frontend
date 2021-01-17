@@ -4,8 +4,10 @@ import Head from "next/head";
 import { useRouter } from "next/router";
 import Navbar from "../components/Navbar";
 import theme from "../theme";
+import React, { useEffect } from "react";
 import { Provider } from "react-redux";
 
+import { getRequest } from "../requests";
 import configureStore from "../stores";
 import Footer from "../components/Footer";
 import ToastController from "../components/ToastController";
@@ -16,6 +18,10 @@ const pageToTitle = {
 };
 
 const PageWrapper = ({ children, title }) => {
+  useEffect(() => {
+    getRequest("/users/");
+  }, []);
+
   return (
     <div className="container">
       <Head>
