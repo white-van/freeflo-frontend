@@ -11,7 +11,7 @@ import {
   Tab,
   Tabs,
   Icon,
-  Avatar
+  Avatar,
 } from "@chakra-ui/react";
 import {
   Menu,
@@ -19,21 +19,45 @@ import {
   MenuList,
   MenuItem,
   MenuDivider,
-} from "@chakra-ui/react"
+} from "@chakra-ui/react";
 import Link from "next/link";
 import { useRouter } from "next/router";
 import React from "react";
-import {
-  FaMoon,
-  FaSun,
-  FaBurn,
-  FaSearch,
-  FaRegHeart,
-  FaRegBell,
-} from "react-icons/fa";
+import { FaMoon, FaSun, FaBurn, FaSearch, FaRegBell } from "react-icons/fa";
+import { connect } from "react-redux";
 
+import { isAuthenticatedSelector } from "../../stores/user/selectors";
+import { toggleModal } from "../../stores/ui/actions";
 
-const LoggedInActions = [FaSearch, FaRegHeart, FaRegBell];
+const LoggedInActions = [FaSearch, FaRegBell];
+
+const drawerItems = [
+  {
+    href: "/",
+    name: "Dashboard",
+  },
+  {
+    href: "/user",
+    name: "Profile",
+  },
+  {
+    href: "/read",
+    name: "Browse articles",
+  },
+  {
+    href: "/write",
+    name: "Write a new story",
+  },
+  {
+    href: "/",
+    name: "Settings",
+  },
+  {
+    href: "/",
+    name: "Log out",
+  },
+];
+
 const LoggedInView = () => {
   const router = useRouter();
   const { pathname } = router;
@@ -49,7 +73,7 @@ const LoggedInView = () => {
           ))}
         </TabList>
       </Tabs>
-      <Link href="/write"> 
+      <Link href="/write">
         <Button
           mt="1"
           mr="1"
@@ -60,54 +84,30 @@ const LoggedInView = () => {
         </Button>
       </Link>
       <Menu>
-          <MenuButton as={Button} variant="ghost" aria-label="Search database" >
-            <Avatar h="30px" w="30px" name="Dan Abrahmov" src="https://bit.ly/dan-abramov" />
-          </MenuButton>
-          <MenuList>
-          <Link href="/">
-            <MenuItem>
-              Dashboard
-            </MenuItem>
-            </Link>
-            <Link href="/profile">
-            <MenuItem>
-              Profile
-            </MenuItem>
-            </Link>
-            <Link href="/read">
-            <MenuItem>
-              Browse articles
-            </MenuItem>
-            </Link>
-            <MenuItem>
-              <Link href="/write">
-              Pending reviews
+        <MenuButton as={Button} variant="ghost" aria-label="Search database">
+          <Avatar
+            h="30px"
+            w="30px"
+            name="Dan Abrahmov"
+            src="https://bit.ly/dan-abramov"
+          />
+        </MenuButton>
+        <MenuList>
+          {drawerItems.map((item, index) => {
+            return (
+              <Link key={index} href={item.href}>
+                <MenuItem>{item.name}</MenuItem>
               </Link>
-            </MenuItem>
-            <MenuItem>
-              <Link href="/write">
-              Your reviews
-              </Link>
-            </MenuItem>
-            <MenuDivider />
-            <Link href="/welcome">
-            <MenuItem>
-              Settings
-            </MenuItem>
-            </Link>
-            <Link href="/welcome">
-            <MenuItem>
-              Log out
-            </MenuItem>
-            </Link>
-          </MenuList>
-        </Menu>
+            );
+          })}
+        </MenuList>
+      </Menu>
     </>
   );
 };
 
-const LoggedOutActions = ["Sign up", "Login"];
-const LoggedOutView = () => {
+const LoggedOutActions = ["Login", "Sign up"];
+const LoggedOutView = ({ toggleModal }) => {
   return (
     <>
       {LoggedOutActions.map((text, index) => (
@@ -115,6 +115,7 @@ const LoggedOutView = () => {
           m="1"
           key={index}
           size="sm"
+          onClick={() => toggleModal(text.toLowerCase().replace(/\s/g, ""))}
           variant={useColorModeValue("primary", "primaryDark")}
         >
           {text}
@@ -123,7 +124,7 @@ const LoggedOutView = () => {
     </>
   );
 };
-export const Navbar = ({ isLoggedIn = false }) => {
+export const Navbar = ({ isAuthenticated, toggleModal }) => {
   const { toggleColorMode } = useColorMode();
   const SwitchIcon = useColorModeValue(FaMoon, FaSun);
   const nextMode = useColorModeValue("dark", "light");
@@ -147,7 +148,11 @@ export const Navbar = ({ isLoggedIn = false }) => {
 
       <Box m="2">
         <Flex>
-          {isLoggedIn ? <LoggedInView /> : <LoggedOutView />}
+          {isAuthenticated ? (
+            <LoggedInView />
+          ) : (
+            <LoggedOutView toggleModal={toggleModal} />
+          )}
 
           <IconButton
             size="sm"
@@ -165,4 +170,11 @@ export const Navbar = ({ isLoggedIn = false }) => {
     </Flex>
   );
 };
-export default Navbar;
+
+const mapStateToProps = (state) => ({
+  isAuthenticated: isAuthenticatedSelector(state),
+});
+
+export default connect(mapStateToProps, {
+  toggleModal,
+})(Navbar);

@@ -5,7 +5,7 @@ export const userAdapter = createEntityAdapter({});
 
 export const initialState = userAdapter.getInitialState({
   userData: {
-    isAuthenticated: false,
+    isAuthenticated: true,
     accessToken: null,
     refreshToken: null,
   },

@@ -1,22 +1,22 @@
 import { connect } from "react-redux";
 
 import AccessModal from "../components/AccessModal";
-import Dashboard from "../views/Dashboard";
-import Landing from "../views/Landing";
+import Dashboard from "../components/Dashboard";
+import Landing from "../components/Landing";
 
-import { userDataSelector } from "../stores/user/selectors";
+import { isAuthenticatedSelector } from "../stores/user/selectors";
 
-function Home({ userData }) {
+function Home({ isAuthenticated }) {
   return (
-    <>
+    <div style={{ height: "95vh" }}>
       <AccessModal />
-      {userData ? <Landing /> : <Dashboard />}
-    </>
+      {!isAuthenticated ? <Landing /> : <Dashboard />}
+    </div>
   );
 }
 
 const mapStateToProps = (state) => ({
-  userData: userDataSelector(state),
+  isAuthenticated: isAuthenticatedSelector(state),
 });
 
 export default connect(mapStateToProps, null)(Home);
