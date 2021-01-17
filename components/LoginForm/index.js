@@ -76,7 +76,7 @@ export function LoginForm({
           onClick={handleSubmit}
           style={{ float: "right" }}
         >
-          Login
+          Submit
         </Button>
         <Button
           m={4}

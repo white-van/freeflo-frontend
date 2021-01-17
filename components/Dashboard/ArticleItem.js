@@ -10,7 +10,7 @@ import {
   Link,
 } from "@chakra-ui/react";
 
-function ListItem({ img, subtitle, timestamp, title }) {
+function ArticleItem({ img, subtitle, timestamp, title }) {
   return (
     <div>
       <HStack w="800px" spacing="20px">
@@ -37,4 +37,4 @@ function ListItem({ img, subtitle, timestamp, title }) {
   );
 }
 
-export default ListItem;
+export default ArticleItem;

@@ -1,4 +1,3 @@
-import { connect } from "react-redux";
 import {
   Button,
   Center,
@@ -48,4 +47,4 @@ function Landing() {
   );
 }
 
-export default connect(null, null)(Landing);
+export default Landing;

@@ -23,19 +23,13 @@ import {
 import Link from "next/link";
 import { useRouter } from "next/router";
 import React from "react";
-import {
-  FaMoon,
-  FaSun,
-  FaBurn,
-  FaSearch,
-  FaRegHeart,
-  FaRegBell,
-} from "react-icons/fa";
+import { FaMoon, FaSun, FaBurn, FaSearch, FaRegBell } from "react-icons/fa";
 import { connect } from "react-redux";
 
+import { isAuthenticatedSelector } from "../../stores/user/selectors";
 import { toggleModal } from "../../stores/ui/actions";
 
-const LoggedInActions = [FaSearch, FaRegHeart, FaRegBell];
+const LoggedInActions = [FaSearch, FaRegBell];
 const LoggedInView = () => {
   const router = useRouter();
   const { pathname } = router;
@@ -117,7 +111,7 @@ const LoggedOutView = ({ toggleModal }) => {
     </>
   );
 };
-export const Navbar = ({ isLoggedIn = false, toggleModal }) => {
+export const Navbar = ({ isAuthenticated, toggleModal }) => {
   const { toggleColorMode } = useColorMode();
   const SwitchIcon = useColorModeValue(FaMoon, FaSun);
   const nextMode = useColorModeValue("dark", "light");
@@ -141,7 +135,7 @@ export const Navbar = ({ isLoggedIn = false, toggleModal }) => {
 
       <Box m="2">
         <Flex>
-          {isLoggedIn ? (
+          {isAuthenticated ? (
             <LoggedInView />
           ) : (
             <LoggedOutView toggleModal={toggleModal} />
@@ -164,6 +158,10 @@ export const Navbar = ({ isLoggedIn = false, toggleModal }) => {
   );
 };
 
-export default connect(null, {
+const mapStateToProps = (state) => ({
+  isAuthenticated: isAuthenticatedSelector(state),
+});
+
+export default connect(mapStateToProps, {
   toggleModal,
 })(Navbar);

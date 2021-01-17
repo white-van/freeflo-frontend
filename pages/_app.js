@@ -13,7 +13,7 @@ import AuthCheck from "../components/AuthCheck";
 import ToastController from "../components/ToastController";
 
 const pageToTitle = {
-  "/": "freeflo.io - Homepage",
+  "/": "freeflo.io",
   "/welcome": "freeflo.io - Welcome",
   "/write": "freeflo.io - Write a new article",
   "/read": "freeflo.io - Read and edit an article",

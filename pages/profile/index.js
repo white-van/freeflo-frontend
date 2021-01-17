@@ -16,7 +16,7 @@ import {
 } from "@chakra-ui/react";
 import styles from "../../styles/Home.module.css";
 import { FaFacebook, FaTwitter } from "react-icons/fa";
-import ListSection from "../../components/Homepage/ListSection";
+import ListSection from "../../components/Dashboard/ListSection";
 
 function Profile() {
   return (
