@@ -52,11 +52,12 @@ const drawerItems = [
   {
     href: "/write",
     name: "Write a new story",
-  },
+  } /*
   {
     href: "/",
     name: "Settings",
-  },
+  }*/,
+  ,
   {
     href: "/",
     name: "Log out",
@@ -144,6 +145,8 @@ const LoggedOutView = ({ toggleModal }) => {
   );
 };
 export const Navbar = ({ isAuthenticated, toggleModal }) => {
+  const router = useRouter();
+  const { pathname } = router;
   const { toggleColorMode } = useColorMode();
   const SwitchIcon = useColorModeValue(FaMoon, FaSun);
   const nextMode = useColorModeValue("dark", "light");
@@ -167,7 +170,7 @@ export const Navbar = ({ isAuthenticated, toggleModal }) => {
 
       <Box m="2">
         <Flex>
-          {isAuthenticated ? (
+          {isAuthenticated || pathname !== "/" ? (
             <LoggedInView />
           ) : (
             <LoggedOutView toggleModal={toggleModal} />

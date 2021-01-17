@@ -1,7 +1,7 @@
 import Cookies from "js-cookie";
 import { createAsyncThunk } from "@reduxjs/toolkit";
 import { displaySuccessToast, displayErrorToast } from "../ui/actions";
-import { formatName } from "../helpers";
+import { formatName, wait } from "../helpers";
 import { postRequest, deleteRequest, refreshConfig } from "../../network";
 
 export const userReducerName = "user";
@@ -19,14 +19,26 @@ export const login = createAsyncThunk(
       password,
     };
     try {
-      const response = await postRequest("/users/login", requestBody);
+      await wait(1500);
+      const response = {
+        headers: {
+          "Access-Token": "",
+          "Refresh-Token": "",
+          "Expire-At": "",
+        },
+        data: {
+          status: 200,
+          message: "Login successful",
+        },
+      }; //await postRequest("/users/login", requestBody);
       dispatch(displaySuccessToast("Login successful", "Happy writing!"));
-      Cookies.set("Access-Token", response.headers["Access-Token"]);
-      Cookies.set("Refresh-Token", response.headers["Refresh-Token"]);
-      Cookies.set("Expire-At", response.headers["Expire-At"]);
-      refreshConfig();
+      //Cookies.set("Access-Token", response.headers["Access-Token"]);
+      //Cookies.set("Refresh-Token", response.headers["Refresh-Token"]);
+      //Cookies.set("Expire-At", response.headers["Expire-At"]);
+      //refreshConfig();
       return response.data;
     } catch (e) {
+      console.log(e);
       dispatch(displayErrorToast("Error has occured", "Login unsuccessful."));
       return rejectWithValue({
         status: e.response && e.response.status,

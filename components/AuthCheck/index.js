@@ -10,7 +10,7 @@ export const AuthCheck = ({ isAuthenticated }) => {
 
   useEffect(() => {
     if (!isAuthenticated && pathname !== "/") {
-      router.push("/");
+      //router.push("/");
     }
   }, [isAuthenticated, pathname, router]);
   return null;

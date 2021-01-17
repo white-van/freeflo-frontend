@@ -195,3 +195,11 @@ export const mockCommits = [
     branch_name: "main",
   },
 ];
+
+export const mockLoginResponse = {
+  headers: {
+    "Access-Token": "",
+    "Refresh-Token": "",
+    "Expire-At": "",
+  },
+};
