@@ -4,12 +4,20 @@ import { formatName } from "../helpers";
 
 export const uiReducerName = "ui";
 
+export const closeAllModals = createAction(
+  formatName(uiReducerName, "closeAllModals")
+);
+
 export const closeAllToasts = createAction(
   formatName(uiReducerName, "closeAllToasts")
 );
 
 export const displayToast = createAction(
   formatName(uiReducerName, "displayToast")
+);
+
+export const toggleModal = createAction(
+  formatName(uiReducerName, "toggleModal")
 );
 
 const displayToastWrapper = (title, description, isSticky, variant) => {

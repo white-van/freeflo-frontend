@@ -28,6 +28,7 @@ import {
 import Link from "next/link";
 import { useRouter } from "next/router";
 import React from "react";
+import { connect } from "react-redux";
 import {
   FaMoon,
   FaSun,
@@ -37,6 +38,17 @@ import {
   FaRegBell,
 } from "react-icons/fa";
 
+import { toggleModal } from "../../stores/ui/actions";
+
+function pathToBtnLabel(path) {
+  if (path.startsWith("/review")) {
+    return "Submit Review";
+  } else if (path === "/write") {
+    return "Publish";
+  } else {
+    return "Write";
+  }
+}
 
 const LoggedInActions = [FaSearch, FaRegHeart, FaRegBell];
 const LoggedInView = () => {
@@ -61,7 +73,7 @@ const LoggedInView = () => {
           size="sm"
           variant={useColorModeValue("primary", "primaryDark")}
         >
-          {pathname === "/write" ? "Publish" : "Write"}
+          {pathToBtnLabel(pathname)}
         </Button>
       </Link>
     </>
@@ -69,11 +81,12 @@ const LoggedInView = () => {
 };
 
 const LoggedOutActions = ["Sign up", "Login"];
-const LoggedOutView = () => {
+const LoggedOutView = ({ toggleModal }) => {
   return (
     <>
       {LoggedOutActions.map((text, index) => (
         <Button
+          onClick={() => toggleModal(text.toLowerCase().replace(/\s/g, ""))}
           m="1"
           key={index}
           size="sm"
@@ -85,7 +98,7 @@ const LoggedOutView = () => {
     </>
   );
 };
-export const Navbar = ({ isLoggedIn = true }) => {
+export const Navbar = ({ isLoggedIn = false, toggleModal }) => {
   const { toggleColorMode } = useColorMode();
   const SwitchIcon = useColorModeValue(FaMoon, FaSun);
   const nextMode = useColorModeValue("dark", "light");
@@ -109,52 +122,11 @@ export const Navbar = ({ isLoggedIn = true }) => {
 
       <Box m="2">
         <Flex>
-          {isLoggedIn ? <LoggedInView /> : <LoggedOutView />}
-
-          <Menu>
-          <MenuButton as={Button} variant="ghost" aria-label="Search database" >
-            <Avatar h="30px" w="30px" name="Dan Abrahmov" src="https://bit.ly/dan-abramov" />
-          </MenuButton>
-          <MenuList>
-          <Link href="/">
-            <MenuItem>
-              Dashboard
-            </MenuItem>
-            </Link>
-            <Link href="/profile">
-            <MenuItem>
-              Profile
-            </MenuItem>
-            </Link>
-            <Link href="/read">
-            <MenuItem>
-              Browse articles
-            </MenuItem>
-            </Link>
-            <MenuItem>
-              <Link href="/write">
-              Pending reviews
-              </Link>
-            </MenuItem>
-            <MenuItem>
-              <Link href="/write">
-              Your reviews
-              </Link>
-            </MenuItem>
-            <MenuDivider />
-            <Link href="/welcome">
-            <MenuItem>
-              Settings
-            </MenuItem>
-            </Link>
-            <Link href="/welcome">
-            <MenuItem>
-              Log out
-            </MenuItem>
-            </Link>
-          </MenuList>
-        </Menu>
-
+          {isLoggedIn ? (
+            <LoggedInView />
+          ) : (
+            <LoggedOutView toggleModal={toggleModal} />
+          )}
           <IconButton
             size="sm"
             fontSize="lg"
@@ -171,4 +143,7 @@ export const Navbar = ({ isLoggedIn = true }) => {
     </Flex>
   );
 };
-export default Navbar;
+
+export default connect(null, {
+  toggleModal,
+})(Navbar);
