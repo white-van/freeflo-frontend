@@ -11,7 +11,6 @@ const enforceTrailingSlash = (url) => {
 
 export function getRequest(uri, searchParams) {
   const params = searchParams ? searchParams : "";
-  console.log(serverUrl);
   return axios.get(enforceTrailingSlash(`${serverUrl}${uri}`) + params);
 }
 
