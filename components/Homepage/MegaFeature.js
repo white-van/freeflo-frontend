@@ -8,7 +8,7 @@ import {
   HStack,
   Image,
   Text,
-  Link
+  Link,
 } from "@chakra-ui/react";
 import { FaFacebook, FaTwitter } from "react-icons/fa";
 
@@ -21,8 +21,8 @@ function MegaFeature({ avatar, desc, img, name, subtitle, title }) {
           <HStack w="400px" spacing="20px">
             <Avatar name={name} src={avatar} />
             <div>
-              <Link href="/read"> 
-              <Text fontWeight="extrabold"> {subtitle} </Text>
+              <Link href="/read">
+                <Text fontWeight="extrabold"> {subtitle} </Text>
               </Link>
               <Text> {title} </Text>
             </div>

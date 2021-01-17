@@ -7,7 +7,7 @@ import {
   Image,
   Text,
   Divider,
-  Link
+  Link,
 } from "@chakra-ui/react";
 
 function ListItem({ img, subtitle, timestamp, title }) {
@@ -17,8 +17,8 @@ function ListItem({ img, subtitle, timestamp, title }) {
         <div>
           <Box w="650px">
             <Flex>
-              <Link href="/read"> 
-              <Text fontWeight="bold"> {title} </Text>
+              <Link href="/read">
+                <Text fontWeight="bold"> {title} </Text>
               </Link>
               <Spacer />
               <Text> {timestamp} </Text>
