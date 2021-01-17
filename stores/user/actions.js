@@ -1,7 +1,8 @@
+import Cookies from "js-cookie";
 import { createAsyncThunk } from "@reduxjs/toolkit";
 import { displaySuccessToast, displayErrorToast } from "../ui/actions";
 import { formatName } from "../helpers";
-import { postRequest, deleteRequest } from "../../requests";
+import { postRequest, deleteRequest, refreshConfig } from "../../network";
 
 export const userReducerName = "user";
 
@@ -20,7 +21,10 @@ export const login = createAsyncThunk(
     try {
       const response = await postRequest("/users/login", requestBody);
       dispatch(displaySuccessToast("Login successful", "Happy writing!"));
-      //response.headers
+      Cookies.set("Access-Token", response.headers["Access-Token"]);
+      Cookies.set("Refresh-Token", response.headers["Refresh-Token"]);
+      Cookies.set("Expire-At", response.headers["Expire-At"]);
+      refreshConfig();
       return response.data;
     } catch (e) {
       dispatch(displayErrorToast("Error has occured", "Login unsuccessful."));
@@ -46,7 +50,10 @@ export const signup = createAsyncThunk(
     };
     try {
       const response = await postRequest("/users/sign_up", requestBody);
-      //response.headers
+      Cookies.set("Access-Token", response.headers["Access-Token"]);
+      Cookies.set("Refresh-Token", response.headers["Refresh-Token"]);
+      Cookies.set("Expire-At", response.headers["Expire-At"]);
+      refreshConfig();
       dispatch(displaySuccessToast("Sign up successful", "Happy writing!"));
       return response.data;
     } catch (e) {
@@ -64,8 +71,11 @@ export const logout = createAsyncThunk(
   async (arg, { dispatch, rejectWithValue }) => {
     const requestBody = arg; // TODO: fix once i figure out what the params are
     try {
-      // pass in access token
       const response = await deleteRequest("/users/sign_out", requestBody);
+      Cookies.remove("Access-Token");
+      Cookies.remove("Refresh-Token");
+      Cookies.remove("Expire-At");
+      refreshConfig();
       dispatch(displaySuccessToast("Sign out successful", "Have a good day!"));
       return response.data;
     } catch (e) {

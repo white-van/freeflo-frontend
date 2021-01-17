@@ -1,7 +1,7 @@
 import { createAsyncThunk } from "@reduxjs/toolkit";
 import { displayErrorToast } from "../ui/actions";
 import { formatName } from "../helpers";
-import { getRequest } from "../../requests";
+import { getRequest } from "../../network";
 
 export const commitReducerName = "commit";
 

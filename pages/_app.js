@@ -7,7 +7,7 @@ import theme from "../theme";
 import React, { useEffect } from "react";
 import { Provider } from "react-redux";
 
-import { getRequest } from "../requests";
+import { getRequest } from "../network";
 import configureStore from "../stores";
 import Footer from "../components/Footer";
 import ToastController from "../components/ToastController";
