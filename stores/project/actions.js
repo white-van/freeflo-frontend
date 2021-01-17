@@ -9,10 +9,15 @@ export const fetchProjects = createAsyncThunk(
   formatName(projectReducerName, "project"),
   async (_, { dispatch, rejectWithValue }) => {
     try {
-      const response = await getRequest("/projects/")
+      const response = await getRequest("/projects/");
       return response.data;
     } catch (e) {
-      dispatch(displayErrorToast("Error has occured", "Fetching projects unsuccessful."));
+      dispatch(
+        displayErrorToast(
+          "Error has occured",
+          "Fetching projects unsuccessful."
+        )
+      );
       return rejectWithValue({
         status: e.response && e.response.status,
         message: e.response && e.response.data,

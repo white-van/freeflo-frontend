@@ -5,7 +5,7 @@ export const projectAdapter = createEntityAdapter({});
 
 export const initialState = projectAdapter.getInitialState({
   error: null,
-  isFetching: false
+  isFetching: false,
 });
 
 const projectReducer = createReducer(initialState, (builder) => {

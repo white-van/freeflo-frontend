@@ -7,6 +7,9 @@ export const userReducerName = "user";
 
 // ---------------------------- user auth ----------------------------------------------
 
+// todo: get headers, set cookie
+// change payload to status, message
+
 export const login = createAsyncThunk(
   formatName(userReducerName, "login"),
   async ({ email, password }, { dispatch, rejectWithValue }) => {
@@ -17,6 +20,7 @@ export const login = createAsyncThunk(
     try {
       const response = await postRequest("/users/login", requestBody);
       dispatch(displaySuccessToast("Login successful", "Happy writing!"));
+      //response.headers
       return response.data;
     } catch (e) {
       dispatch(displayErrorToast("Error has occured", "Login unsuccessful."));
@@ -42,6 +46,7 @@ export const signup = createAsyncThunk(
     };
     try {
       const response = await postRequest("/users/sign_up", requestBody);
+      //response.headers
       dispatch(displaySuccessToast("Sign up successful", "Happy writing!"));
       return response.data;
     } catch (e) {
@@ -54,17 +59,19 @@ export const signup = createAsyncThunk(
   }
 );
 
-
 export const logout = createAsyncThunk(
   formatName(userReducerName, "logout"),
   async (arg, { dispatch, rejectWithValue }) => {
     const requestBody = arg; // TODO: fix once i figure out what the params are
     try {
-      const response = await deleteRequest("/users/login", requestBody);
+      // pass in access token
+      const response = await deleteRequest("/users/sign_out", requestBody);
       dispatch(displaySuccessToast("Sign out successful", "Have a good day!"));
       return response.data;
     } catch (e) {
-      dispatch(displayErrorToast("Error has occured", "Sign out unsuccessful."));
+      dispatch(
+        displayErrorToast("Error has occured", "Sign out unsuccessful.")
+      );
       return rejectWithValue({
         status: e.response && e.response.status,
         message: e.response && e.response.data,
@@ -79,10 +86,12 @@ export const fetchUsers = createAsyncThunk(
   formatName(userReducerName, "fetchUsers"),
   async (_, { dispatch, rejectWithValue }) => {
     try {
-      const response = await getRequest("/users/")
+      const response = await getRequest("/users/");
       return response.data;
     } catch (e) {
-      dispatch(displayErrorToast("Error has occured", "Fetching users unsuccessful."));
+      dispatch(
+        displayErrorToast("Error has occured", "Fetching users unsuccessful.")
+      );
       return rejectWithValue({
         status: e.response && e.response.status,
         message: e.response && e.response.data,
@@ -95,10 +104,12 @@ export const fetchUserById = createAsyncThunk(
   formatName(userReducerName, "fetchUserById"),
   async ({ userId }, { dispatch, rejectWithValue }) => {
     try {
-      const response = await getRequest("/users/", `?user-id=${userId}`)
+      const response = await getRequest("/users/", `?user-id=${userId}`);
       return response.data;
     } catch (e) {
-      dispatch(displayErrorToast("Error has occured", "Fetching user unsuccessful."));
+      dispatch(
+        displayErrorToast("Error has occured", "Fetching user unsuccessful.")
+      );
       return rejectWithValue({
         status: e.response && e.response.status,
         message: e.response && e.response.data,
