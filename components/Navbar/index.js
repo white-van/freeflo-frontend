@@ -23,13 +23,18 @@ import {
 import Link from "next/link";
 import { useRouter } from "next/router";
 import React from "react";
-import { FaMoon, FaSun, FaBurn, FaSearch, FaRegBell } from "react-icons/fa";
+import {
+  FaMoon,
+  FaSun,
+  FaBurn,
+  FaSearch,
+  FaRegBell,
+  FaPencilAlt,
+} from "react-icons/fa";
 import { connect } from "react-redux";
 
 import { isAuthenticatedSelector } from "../../stores/user/selectors";
 import { toggleModal } from "../../stores/ui/actions";
-
-const LoggedInActions = [FaSearch, FaRegBell];
 
 const drawerItems = [
   {
@@ -58,6 +63,8 @@ const drawerItems = [
   },
 ];
 
+const notifications = ["Reviewed", "Denied", "Approved"];
+
 const LoggedInView = () => {
   const router = useRouter();
   const { pathname } = router;
@@ -66,25 +73,37 @@ const LoggedInView = () => {
     <>
       <Tabs size="md" mt="1" mr="4" variant="soft-rounded">
         <TabList>
-          {LoggedInActions.map((icon, index) => (
-            <Tab key={index}>
-              <Icon as={icon} />
-            </Tab>
-          ))}
+          <Tab>
+            <Icon as={FaSearch} />
+          </Tab>
+          <Menu>
+            <MenuButton
+              as={Button}
+              variant="ghost"
+              aria-label="Open notifications"
+            >
+              <Icon as={FaRegBell} />
+            </MenuButton>
+            <MenuList>
+              {notifications.map((item, index) => {
+                return <MenuItem key={index}>{item}</MenuItem>;
+              })}
+            </MenuList>
+          </Menu>
         </TabList>
       </Tabs>
       <Link href="/write">
         <Button
-          mt="1"
+          mt="2"
           mr="1"
           size="sm"
           variant={useColorModeValue("primary", "primaryDark")}
         >
-          {pathname === "/write" ? "Publish" : "Write"}
+          {pathname === "/write" ? "Publish" : <FaPencilAlt />}
         </Button>
       </Link>
       <Menu>
-        <MenuButton as={Button} variant="ghost" aria-label="Search database">
+        <MenuButton as={Button} variant="ghost" aria-label="Open user options">
           <Avatar
             h="30px"
             w="30px"
