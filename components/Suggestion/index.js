@@ -26,8 +26,10 @@ export default function Suggestion({
   status,
   src,
   summary,
+  text,
   linesAdded,
   linesRemoved,
+  acceptModification,
   previewSuggestion,
   modifySuggestion,
   resetPreview,
@@ -77,7 +79,7 @@ export default function Suggestion({
           </HStack>
         </AccordionButton>
         <AccordionPanel>
-          <Stat onMouseEnter={() => previewSuggestion(summary)}>
+          <Stat onMouseEnter={() => previewSuggestion(text)}>
             <StatNumber m={2}>{summary}</StatNumber>
             <StatHelpText m={2}>
               <StatArrow type="increase" />
@@ -96,6 +98,7 @@ export default function Suggestion({
                 </Button>
                 <Button
                   onClick={() => {
+                    acceptModification(text);
                     modifySuggestion(id, 1);
                     setIsOpen(false);
                   }}

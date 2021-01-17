@@ -7,16 +7,19 @@ import {
   Image,
   Text,
   Divider,
+  Link,
 } from "@chakra-ui/react";
 
-function ListItem({ img, subtitle, timestamp, title }) {
+function ArticleItem({ img, subtitle, timestamp, title }) {
   return (
     <div>
       <HStack w="800px" spacing="20px">
         <div>
           <Box w="650px">
             <Flex>
-              <Text fontWeight="bold"> {title} </Text>
+              <Link href="/read">
+                <Text fontWeight="bold"> {title} </Text>
+              </Link>
               <Spacer />
               <Text> {timestamp} </Text>
             </Flex>
@@ -34,4 +37,4 @@ function ListItem({ img, subtitle, timestamp, title }) {
   );
 }
 
-export default ListItem;
+export default ArticleItem;

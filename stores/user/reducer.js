@@ -31,8 +31,6 @@ const userReducer = createReducer(initialState, (builder) => {
   builder.addCase(login.fulfilled, (state, { payload }) => {
     state.login.error = null;
     state.userData.isAuthenticated = true;
-    state.userData.accessToken = payload.accessToken;
-    state.userData.refreshToken = payload.refreshToken;
     state.login.isPending = false;
   });
   builder.addCase(login.rejected, (state, { payload }) => {

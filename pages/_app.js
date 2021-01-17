@@ -4,24 +4,22 @@ import Head from "next/head";
 import { useRouter } from "next/router";
 import Navbar from "../components/Navbar";
 import theme from "../theme";
-import React, { useEffect } from "react";
+import React from "react";
 import { Provider } from "react-redux";
 
-import { getRequest } from "../network";
 import configureStore from "../stores";
 import Footer from "../components/Footer";
+import AuthCheck from "../components/AuthCheck";
 import ToastController from "../components/ToastController";
 
 const pageToTitle = {
-  "/": "freeflo.io - Homepage",
+  "/": "freeflo.io",
   "/write": "freeflo.io - Write a new article",
+  "/read": "freeflo.io - Read and edit an article",
+  "/user": "freeflo.io - View a profile",
 };
 
 const PageWrapper = ({ children, title }) => {
-  useEffect(() => {
-    getRequest("/users/");
-  }, []);
-
   return (
     <div className="container">
       <Head>
@@ -43,6 +41,7 @@ function MyApp({ Component, pageProps }) {
   return (
     <ChakraProvider theme={theme}>
       <Provider store={store}>
+        <AuthCheck />
         <ToastController />
         <PageWrapper title={pageToTitle[pathname]}>
           <Component {...pageProps} />

@@ -11,33 +11,61 @@ import {
   Tab,
   Tabs,
   Icon,
+  Avatar,
+} from "@chakra-ui/react";
+import {
+  Menu,
+  MenuButton,
+  MenuList,
+  MenuItem,
+  MenuDivider,
 } from "@chakra-ui/react";
 import Link from "next/link";
 import { useRouter } from "next/router";
 import React from "react";
-import { connect } from "react-redux";
 import {
   FaMoon,
   FaSun,
   FaBurn,
   FaSearch,
-  FaRegHeart,
   FaRegBell,
+  FaPencilAlt,
 } from "react-icons/fa";
+import { connect } from "react-redux";
 
+import { isAuthenticatedSelector } from "../../stores/user/selectors";
 import { toggleModal } from "../../stores/ui/actions";
 
-function pathToBtnLabel(path) {
-  if (path.startsWith("/review")) {
-    return "Submit Review";
-  } else if (path === "/write") {
-    return "Publish";
-  } else {
-    return "Write";
-  }
-}
+const drawerItems = [
+  {
+    href: "/",
+    name: "Dashboard",
+  },
+  {
+    href: "/user",
+    name: "Profile",
+  },
+  {
+    href: "/read",
+    name: "Browse articles",
+  },
+  {
+    href: "/write",
+    name: "Write a new story",
+  } /*
+  {
+    href: "/",
+    name: "Settings",
+  }*/,
+  ,
+  {
+    href: "/",
+    name: "Log out",
+  },
+];
 
-const LoggedInActions = [FaSearch, FaRegHeart, FaRegBell];
+const notifications = ["Reviewed", "Denied", "Approved"];
+
 const LoggedInView = () => {
   const router = useRouter();
   const { pathname } = router;
@@ -46,37 +74,68 @@ const LoggedInView = () => {
     <>
       <Tabs size="md" mt="1" mr="4" variant="soft-rounded">
         <TabList>
-          {LoggedInActions.map((icon, index) => (
-            <Tab key={index}>
-              <Icon as={icon} />
-            </Tab>
-          ))}
+          <Tab>
+            <Icon as={FaSearch} />
+          </Tab>
+          <Menu>
+            <MenuButton
+              as={Button}
+              variant="ghost"
+              aria-label="Open notifications"
+            >
+              <Icon as={FaRegBell} />
+            </MenuButton>
+            <MenuList>
+              {notifications.map((item, index) => {
+                return <MenuItem key={index}>{item}</MenuItem>;
+              })}
+            </MenuList>
+          </Menu>
         </TabList>
       </Tabs>
       <Link href="/write">
         <Button
-          mt="1"
+          mt="2"
           mr="1"
           size="sm"
           variant={useColorModeValue("primary", "primaryDark")}
         >
-          {pathToBtnLabel(pathname)}
+          {pathname === "/write" ? "Publish" : <FaPencilAlt />}
         </Button>
       </Link>
+      <Menu>
+        <MenuButton as={Button} variant="ghost" aria-label="Open user options">
+          <Avatar
+            h="30px"
+            w="30px"
+            name="Dan Abrahmov"
+            src="https://bit.ly/dan-abramov"
+          />
+        </MenuButton>
+        <MenuList>
+          {drawerItems.map((item, index) => {
+            return (
+              <Link key={index} href={item.href}>
+                <MenuItem>{item.name}</MenuItem>
+              </Link>
+            );
+          })}
+        </MenuList>
+      </Menu>
     </>
   );
 };
 
-const LoggedOutActions = ["Sign up", "Login"];
+const LoggedOutActions = ["Login", "Sign up"];
 const LoggedOutView = ({ toggleModal }) => {
   return (
     <>
       {LoggedOutActions.map((text, index) => (
         <Button
-          onClick={() => toggleModal(text.toLowerCase().replace(/\s/g, ""))}
           m="1"
           key={index}
           size="sm"
+          onClick={() => toggleModal(text.toLowerCase().replace(/\s/g, ""))}
           variant={useColorModeValue("primary", "primaryDark")}
         >
           {text}
@@ -85,7 +144,9 @@ const LoggedOutView = ({ toggleModal }) => {
     </>
   );
 };
-export const Navbar = ({ isLoggedIn = false, toggleModal }) => {
+export const Navbar = ({ isAuthenticated, toggleModal }) => {
+  const router = useRouter();
+  const { pathname } = router;
   const { toggleColorMode } = useColorMode();
   const SwitchIcon = useColorModeValue(FaMoon, FaSun);
   const nextMode = useColorModeValue("dark", "light");
@@ -109,11 +170,12 @@ export const Navbar = ({ isLoggedIn = false, toggleModal }) => {
 
       <Box m="2">
         <Flex>
-          {isLoggedIn ? (
+          {isAuthenticated || pathname !== "/" ? (
             <LoggedInView />
           ) : (
             <LoggedOutView toggleModal={toggleModal} />
           )}
+
           <IconButton
             size="sm"
             fontSize="lg"
@@ -131,6 +193,10 @@ export const Navbar = ({ isLoggedIn = false, toggleModal }) => {
   );
 };
 
-export default connect(null, {
+const mapStateToProps = (state) => ({
+  isAuthenticated: isAuthenticatedSelector(state),
+});
+
+export default connect(mapStateToProps, {
   toggleModal,
 })(Navbar);
