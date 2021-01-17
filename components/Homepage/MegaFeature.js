@@ -14,7 +14,7 @@ import { FaFacebook, FaTwitter } from "react-icons/fa";
 
 function MegaFeature({ avatar, desc, img, name, subtitle, title }) {
   return (
-    <HStack justify="center">
+    <HStack justify="center" spacing="20px">
       <Image htmlWidth="400px" objectFit="cover" src={img} />
       <div>
         <Flex>
@@ -27,17 +27,19 @@ function MegaFeature({ avatar, desc, img, name, subtitle, title }) {
               <Text> {title} </Text>
             </div>
             <Spacer />
+            <div>
             <Button
               colorScheme="facebook"
               aria-label="facebook"
               variant="ghost"
+              size="md"
             >
               <FaFacebook />
             </Button>
             <Button colorScheme="twitter" aria-label="twitter" variant="ghost">
               <FaTwitter />
             </Button>
-            />
+            </div>
           </HStack>
         </Flex>
         <Box w="400px">
