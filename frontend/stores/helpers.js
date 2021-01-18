@@ -1,5 +1,3 @@
-import { validateYupSchema } from "formik";
-
 export const formatName = (reducer, name) => `${reducer}/${name}`;
 
 export function wait(s) {

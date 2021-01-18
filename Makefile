@@ -1,2 +1,3 @@
 prettier:
-	npx prettier --write .
+	cd frontend && npx prettier --write .
+	cd backend && npx prettier --write .
